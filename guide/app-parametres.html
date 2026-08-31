@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paramètres — Margeo App</title>
+  <meta name="description" content="Gérez votre profil, votre abonnement Margeo et vos préférences de notifications.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟣</text></svg>">
+</head>
+<body class="app-layout">
+
+  <!-- Sidebar Container -->
+  <div id="app-sidebar-container"></div>
+
+  <main class="app-main">
+    
+    <!-- Top Header Row -->
+    <div class="app-header-row">
+      <div class="app-page-heading">
+        <h1>Paramètres ⚙️</h1>
+        <p class="app-page-subtitle">Configurez votre compte, pilotez votre formule d'abonnement et réglez vos alertes.</p>
+      </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="app-tabs-nav">
+      <button type="button" class="app-tab-btn active" id="tab-btn-profil">👤 Profil</button>
+      <button type="button" class="app-tab-btn" id="tab-btn-abonnement">💳 Abonnement & Facturation</button>
+      <button type="button" class="app-tab-btn" id="tab-btn-notifications">🔔 Notifications & Alertes</button>
+    </div>
+
+    <!-- ========================================================
+         TAB 1 : PROFIL
+         ======================================================== -->
+    <div id="tab-pane-profil">
+      <div class="app-section-card">
+        <div class="app-section-title" style="margin-bottom: 24px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <span>Informations personnelles</span>
+        </div>
+
+        <form id="profile-form" class="settings-form" onsubmit="return false;">
+          <div class="settings-field-row">
+            <div class="input-group" style="flex: 1;">
+              <label for="profile-email" class="auth-input-label">Adresse email de connexion</label>
+              <input type="email" id="profile-email" class="auth-input-field" value="camille.resell@gmail.com">
+            </div>
+          </div>
+
+          <div class="settings-field-row">
+            <div class="input-group" style="flex: 1;">
+              <label for="profile-name" class="auth-input-label">Prénom ou Pseudo Vinted</label>
+              <input type="text" id="profile-name" class="auth-input-field" value="Camille">
+            </div>
+          </div>
+
+          <div class="settings-field-row">
+            <div class="input-group" style="flex: 1;">
+              <label class="auth-input-label">Mot de passe</label>
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <input type="password" class="auth-input-field" value="••••••••••••" disabled style="flex: 1; opacity: 0.6;">
+                <button type="button" class="btn btn-secondary btn-sm" id="change-pwd-btn">Modifier</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mode par défaut -->
+          <div class="settings-field-row" style="margin-top: 8px;">
+            <div>
+              <label class="auth-input-label">Mode vendeur par défaut</label>
+              <p style="font-size: 0.8rem; color: var(--text-subtle); margin-bottom: 10px;">
+                Pré-sélectionné automatiquement dans le simulateur. Modifiable à tout moment lors de chaque calcul.
+              </p>
+              <div class="seller-mode-switcher" role="group" aria-label="Choix du mode par défaut" style="max-width: 420px;">
+                <button type="button" class="mode-btn" id="default-mode-particulier" role="button" aria-pressed="true">
+                  <span>👤 Particulier (0% comm.)</span>
+                </button>
+                <button type="button" class="mode-btn" id="default-mode-pro" role="button" aria-pressed="false">
+                  <span>💼 Vinted Pro (5% comm.)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 20px;">
+            <button type="button" class="btn btn-primary btn-sm btn-glow" id="save-profile-btn">
+              Enregistrer les modifications
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Danger Zone -->
+      <div class="app-section-card" style="border-color: #FCA5A5;">
+        <div class="app-section-title" style="margin-bottom: 16px; color: var(--accent-danger);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          <span>Zone de danger</span>
+        </div>
+
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+          <div>
+            <div style="font-weight: 600; font-size: 0.92rem;">Supprimer définitivement mon compte</div>
+            <div style="font-size: 0.82rem; color: var(--text-muted);">
+              L'ensemble de vos articles, simulations et lots enregistrés seront effacés de manière irréversible.
+            </div>
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm" style="color: var(--accent-danger); border-color: #FCA5A5;" id="delete-account-btn">
+            Supprimer mon compte
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================
+         TAB 2 : ABONNEMENT & FACTURATION
+         ======================================================== -->
+    <div id="tab-pane-abonnement" style="display: none;">
+      
+      <!-- Cancellation Notice Banner (Shown if subscription was canceled) -->
+      <div id="canceled-plan-alert" class="app-limit-alert-banner" style="display: none; background: #FEF2F2; border-color: #FCA5A5; color: #991B1B;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.2rem;">⏳</span>
+          <div>
+            <strong>Abonnement en cours de résiliation :</strong> Vous conservez l'accès à votre formule jusqu'au <span id="cancel-end-date">30 septembre 2026</span>.
+          </div>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm" id="reactivate-sub-btn" style="background: #FFFFFF; font-weight: 700; color: var(--primary-700); border-color: var(--primary-300);">
+          Réactiver mon abonnement ✨
+        </button>
+      </div>
+
+      <!-- 1. Carte Plan Actuel -->
+      <div class="app-section-card" style="background: linear-gradient(145deg, #1E1B4B 0%, #312E81 100%); color: #FFFFFF; border: none; box-shadow: 0 12px 32px -5px rgba(49, 46, 129, 0.4); margin-bottom: 24px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+              <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--primary-200); font-weight: 700; letter-spacing: 0.04em;">Formule active</span>
+              <span id="plan-badge-pill" class="badge" style="background: rgba(255, 255, 255, 0.2); color: #FFFFFF; border: 1px solid rgba(255, 255, 255, 0.3); font-size: 0.74rem;">Gratuit</span>
+            </div>
+            <div style="font-size: 2.2rem; font-weight: 800; font-family: var(--font-heading); line-height: 1.1;" id="current-plan-display">Gratuit</div>
+            <div style="font-size: 0.92rem; color: var(--primary-200); margin-top: 6px;" id="current-plan-price-row">
+              <strong style="color: #FFFFFF;" id="current-plan-price">0 €</strong> / mois • <span id="current-plan-renewal">Accès à vie</span>
+            </div>
+          </div>
+          
+          <button type="button" class="btn btn-primary btn-glow" id="toggle-change-plan-btn" style="background: #FFFFFF; color: var(--primary-800); font-weight: 800; border: none;">
+            ✨ Changer de formule
+          </button>
+        </div>
+
+        <div style="margin-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 18px;">
+          <div style="font-size: 0.82rem; font-weight: 700; color: var(--primary-200); margin-bottom: 12px;">Fonctionnalités incluses dans votre formule :</div>
+          <ul id="current-plan-features" style="list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px;">
+            <!-- Rendered dynamically -->
+          </ul>
+        </div>
+      </div>
+
+      <!-- 2. Suivi d'utilisation du quota -->
+      <div class="app-section-card" style="margin-bottom: 24px;">
+        <div class="app-section-title" style="margin-bottom: 16px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+          <span>Suivi de votre consommation mensuelle</span>
+        </div>
+
+        <!-- Free Plan Usage Progress Bar -->
+        <div id="usage-free-container">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 0.9rem;">
+            <span>Calculs enregistrés ce mois-ci :</span>
+            <strong id="usage-count-text">3 / 5 calculs</strong>
+          </div>
+          <div class="progress-track" style="height: 12px; margin-bottom: 10px;">
+            <div class="progress-bar-fill" id="usage-progress-bar" style="width: 60%;"></div>
+          </div>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0;">
+            💡 Votre quota gratuit se réinitialise automatiquement le <strong>1er du mois prochain</strong>. Passez à <strong>Starter</strong> pour des calculs illimités.
+          </p>
+        </div>
+
+        <!-- Paid Plan Unlimited Badge -->
+        <div id="usage-paid-container" style="display: none; align-items: center; gap: 12px; background: var(--accent-success-light); padding: 16px 20px; border-radius: var(--radius-md); border: 1px solid rgba(16, 185, 129, 0.2);">
+          <div style="font-size: 1.6rem;">⚡</div>
+          <div>
+            <div style="font-weight: 700; color: #065F46; font-size: 0.95rem;">Calculs et enregistrements d'articles illimités</div>
+            <div style="font-size: 0.82rem; color: #047857;">Aucune restriction de volume sur votre formule active.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Grille comparative des 4 formules (Dépliée via Changer de plan) -->
+      <div id="plans-comparison-section" style="display: none; margin-bottom: 28px;">
+        <div class="app-section-card">
+          <div class="app-section-header">
+            <div>
+              <h2 class="app-section-title">Choisir une nouvelle formule</h2>
+              <p class="app-page-subtitle">Passez à la vitesse supérieure ou ajustez votre forfait en toute liberté.</p>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" id="close-comparison-btn">Fermer ✕</button>
+          </div>
+
+          <div class="plans-comparison-grid">
+            <!-- Formule 1 : Gratuit -->
+            <div class="plan-compare-card" id="plan-card-gratuit">
+              <div class="plan-compare-header">
+                <div class="plan-compare-name">Gratuit</div>
+                <div class="plan-compare-price">0 € <span>/mois</span></div>
+                <div style="font-size: 0.76rem; color: var(--text-subtle);">Sans carte bancaire</div>
+              </div>
+              <ul class="plan-compare-features">
+                <li>✓ 5 calculs par mois</li>
+                <li>✓ Bilan du mois en cours</li>
+                <li>✓ Simulateur interactif</li>
+                <li class="locked">✗ Historique complet</li>
+                <li class="locked">✗ Lots de commande</li>
+                <li class="locked">✗ Export comptable</li>
+              </ul>
+              <button type="button" class="btn btn-secondary btn-sm plan-select-btn" data-plan="gratuit" style="width: 100%;">
+                Sélectionner
+              </button>
+            </div>
+
+            <!-- Formule 2 : Starter -->
+            <div class="plan-compare-card" id="plan-card-starter">
+              <div class="plan-compare-header">
+                <div class="plan-compare-name">Starter</div>
+                <div class="plan-compare-price">5 € <span>/mois</span></div>
+                <div style="font-size: 0.76rem; color: var(--text-subtle);">Sans engagement</div>
+              </div>
+              <ul class="plan-compare-features">
+                <li>✓ <strong>Calculs illimités</strong></li>
+                <li>✓ Historique complet 12 mois</li>
+                <li>✓ Import CSV des ventes</li>
+                <li>✓ Bilan du mois en cours</li>
+                <li class="locked">✗ Lots de commande</li>
+                <li class="locked">✗ Export comptable</li>
+              </ul>
+              <button type="button" class="btn btn-primary btn-sm plan-select-btn" data-plan="starter" style="width: 100%;">
+                Passer à Starter
+              </button>
+            </div>
+
+            <!-- Formule 3 : Pro Reseller -->
+            <div class="plan-compare-card recommended" id="plan-card-pro">
+              <div class="plan-popular-badge">⭐ Le + populaire</div>
+              <div class="plan-compare-header">
+                <div class="plan-compare-name">Pro Reseller</div>
+                <div class="plan-compare-price">9 € <span>/mois</span></div>
+                <div style="font-size: 0.76rem; color: var(--primary-600); font-weight: 600;">ou 7 €/m (annuel)</div>
+              </div>
+              <ul class="plan-compare-features">
+                <li>✓ <strong>Tout Starter inclus</strong></li>
+                <li>✓ <strong>Suivi des Lots groupés</strong></li>
+                <li>✓ Seuil de rentabilité en direct</li>
+                <li>✓ Optimiseur de prix Vinted</li>
+                <li>✓ Alerte email hebdo</li>
+                <li class="locked">✗ Export comptable 1-clic</li>
+              </ul>
+              <button type="button" class="btn btn-primary btn-sm btn-glow plan-select-btn" data-plan="pro" style="width: 100%;">
+                Passer à Pro Reseller
+              </button>
+            </div>
+
+            <!-- Formule 4 : Empire -->
+            <div class="plan-compare-card" id="plan-card-empire">
+              <div class="plan-compare-header">
+                <div class="plan-compare-name">Empire</div>
+                <div class="plan-compare-price">24 € <span>/mois</span></div>
+                <div style="font-size: 0.76rem; color: var(--primary-600); font-weight: 600;">ou 19 €/m (annuel)</div>
+              </div>
+              <ul class="plan-compare-features">
+                <li>✓ <strong>Tout Pro Reseller inclus</strong></li>
+                <li>✓ Mode Pro + URSSAF 12,3 %</li>
+                <li>✓ <strong>Export CSV / Excel 1 clic</strong></li>
+                <li>✓ Multi-utilisateurs (3 accès)</li>
+                <li>✓ Gestion SKU produits</li>
+                <li>✓ Support prioritaire 7j/7</li>
+              </ul>
+              <button type="button" class="btn btn-primary btn-sm plan-select-btn" data-plan="empire" style="width: 100%;">
+                Passer à Empire
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Moyen de paiement (Plans payants) -->
+      <div class="app-section-card" id="payment-method-section" style="display: none; margin-bottom: 24px;">
+        <div class="app-section-header">
+          <div class="app-section-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+            <span>Moyen de paiement</span>
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm" id="edit-payment-btn">Modifier la carte</button>
+        </div>
+
+        <!-- Payment Card Preview -->
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; background: #F8FAFC; border: 1.5px solid var(--border-light); border-radius: var(--radius-lg); padding: 18px 22px;">
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <div style="background: #1E293B; color: #FFFFFF; font-weight: 800; font-size: 0.9rem; padding: 8px 14px; border-radius: 6px; letter-spacing: 0.05em;">
+              VISA
+            </div>
+            <div>
+              <div style="font-weight: 700; font-size: 0.95rem; color: var(--text-main);" id="card-display-number">•••• •••• •••• 4242</div>
+              <div style="font-size: 0.8rem; color: var(--text-muted);" id="card-display-expiry">Expire le 12/2028 • Paiements sécurisés Stripe</div>
+            </div>
+          </div>
+
+          <span class="app-badge-status sold" style="font-size: 0.8rem;">
+            ✓ Paiement à jour
+          </span>
+        </div>
+      </div>
+
+      <!-- 5. Historique de facturation (Plans payants) -->
+      <div class="app-section-card" id="billing-history-section" style="display: none; margin-bottom: 24px;">
+        <div class="app-section-header">
+          <div class="app-section-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+            <span>Historique des factures</span>
+          </div>
+          <span style="font-size: 0.82rem; color: var(--text-muted);">6 dernières factures</span>
+        </div>
+
+        <div class="app-table-wrapper">
+          <table class="app-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Réf. Facture</th>
+                <th>Montant</th>
+                <th>Statut</th>
+                <th style="text-align: right;">Facture</th>
+              </tr>
+            </thead>
+            <tbody id="invoices-tbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 6. Bloc Résiliation (Discret en bas de page) -->
+      <div class="app-section-card" id="cancel-sub-section" style="display: none; border-color: #FCA5A5; background: #FFFBFB;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+          <div>
+            <div style="font-weight: 700; font-size: 0.95rem; color: #991B1B; margin-bottom: 4px;">Résilier mon abonnement</div>
+            <div style="font-size: 0.84rem; color: var(--text-muted); max-width: 540px;">
+              Vous pouvez résilier en 1 clic sans frais. Vous conserverez vos fonctionnalités payantes jusqu'à la fin de la période en cours.
+            </div>
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm" id="open-cancel-modal-btn" style="color: var(--accent-danger); border-color: #FCA5A5; font-weight: 600;">
+            Résilier mon abonnement
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================================
+         TAB 3 : NOTIFICATIONS & ALERTES
+         ======================================================== -->
+    <div id="tab-pane-notifications" style="display: none;">
+      
+      <!-- Auto-Save Floating Toast Indicator -->
+      <div id="notif-saved-toast" style="display: none; position: fixed; bottom: 30px; right: 30px; background: #1E1B4B; color: #FFFFFF; padding: 12px 20px; border-radius: var(--radius-full); box-shadow: 0 10px 25px rgba(0,0,0,0.2); font-size: 0.88rem; font-weight: 600; z-index: 1000; align-items: center; gap: 8px;">
+        <span style="color: #34D399;">✓</span> Préférences enregistrées
+      </div>
+
+      <!-- Section 1 : Récaps par email -->
+      <div class="app-section-card" style="margin-bottom: 24px;">
+        <div class="app-section-title" style="margin-bottom: 6px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          <span>Récaps automatiques par email</span>
+        </div>
+        <p class="app-page-subtitle" style="margin-bottom: 18px;">Recevez des synthèses périodiques de vos ventes et de votre marge nette.</p>
+
+        <!-- Toggle Weekly Alert (Pro Reseller+) -->
+        <div class="settings-toggle-row">
+          <div>
+            <div class="settings-toggle-title">
+              <span>Récap hebdomadaire</span>
+              <span class="settings-plan-tag" id="weekly-plan-tag">⭐ Pro Reseller+</span>
+            </div>
+            <div class="settings-toggle-desc" id="weekly-desc">
+              Reçois un résumé de tes ventes et ton bénéfice net chaque lundi matin à 8h.
+            </div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="toggle-weekly">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <!-- Toggle Monthly Recap -->
+        <div class="settings-toggle-row">
+          <div>
+            <div class="settings-toggle-title">
+              <span>Récap mensuel</span>
+            </div>
+            <div class="settings-toggle-desc">
+              Le bilan complet de ton mois (total dépensé, encaissé, bénéfice net), envoyé le 1er du mois suivant.
+            </div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="toggle-monthly" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Section 2 : Alertes d'activité -->
+      <div class="app-section-card" style="margin-bottom: 24px;">
+        <div class="app-section-title" style="margin-bottom: 6px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+          <span>Alertes d'activité et de seuils</span>
+        </div>
+        <p class="app-page-subtitle" style="margin-bottom: 18px;">Restez alerté(e) des événements clés sur vos ventes et vos commandes groupées.</p>
+
+        <!-- Toggle Break-Even Point (Pro Reseller+) -->
+        <div class="settings-toggle-row">
+          <div>
+            <div class="settings-toggle-title">
+              <span>Seuil de rentabilité atteint</span>
+              <span class="settings-plan-tag" id="breakeven-plan-tag">⭐ Pro Reseller+</span>
+            </div>
+            <div class="settings-toggle-desc" id="breakeven-desc">
+              Sois prévenu(e) par email dès qu'un de tes lots de commande passe dans le vert (100% remboursé).
+            </div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="toggle-breakeven">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <!-- Toggle Free Plan Limit (Gratuit only) -->
+        <div class="settings-toggle-row" id="limit-alert-row">
+          <div>
+            <div class="settings-toggle-title">
+              <span>Limite du plan Gratuit atteinte</span>
+              <span class="badge" style="font-size: 0.7rem; background: var(--primary-100); color: var(--primary-700);">Plan Gratuit</span>
+            </div>
+            <div class="settings-toggle-desc">
+              Un email de rappel lorsque vous approchez de vos 5 calculs mensuels offerts.
+            </div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="toggle-limit-warning" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Section 3 : Emails produit & conseils -->
+      <div class="app-section-card" style="margin-bottom: 24px;">
+        <div class="app-section-title" style="margin-bottom: 6px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          <span>Communication & Nouveautés</span>
+        </div>
+        <p class="app-page-subtitle" style="margin-bottom: 18px;">Conseils d'optimisation de vente et actualités du produit.</p>
+
+        <div class="settings-toggle-row">
+          <div>
+            <div class="settings-toggle-title">
+              <span>Nouveautés et conseils Margeo</span>
+            </div>
+            <div class="settings-toggle-desc">
+              Occasionnellement, des astuces pour mieux revendre sur Vinted et les nouvelles fonctionnalités en avant-première (désactivable en 1 clic).
+            </div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="toggle-product-tips" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Security Note Footer -->
+      <div style="background: #F8FAFC; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 14px 18px; font-size: 0.82rem; color: var(--text-muted); line-height: 1.5;">
+        🔒 <strong>Note de sécurité :</strong> Les emails essentiels à la sécurité de votre compte (réinitialisation de mot de passe, alertes de connexion suspecte, confirmations de paiement) vous sont toujours envoyés, indépendamment de ces réglages.
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ========================================================
+       MODALES D'INTERACTION ABONNEMENT
+       ======================================================== -->
+
+  <!-- Modal 1 : Confirmation Upgrade avec calcul du Prorata -->
+  <div class="modal-overlay" id="upgrade-modal" role="dialog" aria-modal="true">
+    <div class="modal-container" style="max-width: 480px;">
+      <button class="modal-close" id="close-upgrade-modal-btn">&times;</button>
+      
+      <div style="text-align: center; margin-bottom: 20px;">
+        <div style="font-size: 2.2rem; margin-bottom: 8px;">✨</div>
+        <h3 style="font-size: 1.4rem; margin-bottom: 6px;">Confirmer le changement de formule</h3>
+        <p style="font-size: 0.88rem; color: var(--text-muted);">
+          Vous passez à la formule <strong id="modal-upgrade-plan-name" style="color: var(--primary-700);">Pro Reseller</strong>
+        </p>
+      </div>
+
+      <div style="background: #F8FAFC; border: 1.5px solid var(--border-light); border-radius: var(--radius-lg); padding: 18px; margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 10px;">
+          <span style="color: var(--text-muted);">Tarif mensuel standard :</span>
+          <strong id="modal-upgrade-standard-price">9,00 € / mois</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 10px;">
+          <span style="color: var(--text-muted);">Prorata restant sur le cycle en cours :</span>
+          <strong style="color: var(--primary-600);" id="modal-upgrade-prorata-price">4,20 €</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1.5px solid var(--border-light); padding-top: 12px; font-size: 1rem;">
+          <strong style="color: var(--text-main);">À régler immédiatement :</strong>
+          <strong style="font-size: 1.3rem; color: var(--accent-success); font-family: var(--font-heading);" id="modal-upgrade-due-price">4,20 €</strong>
+        </div>
+      </div>
+
+      <p style="font-size: 0.78rem; color: var(--text-subtle); line-height: 1.5; margin-bottom: 20px;">
+        Le montant sera débité sur votre carte VISA •••• 4242. Votre prochain renouvellement aura lieu le 1er du mois prochain au tarif standard.
+      </p>
+
+      <div style="display: flex; gap: 12px;">
+        <button type="button" class="btn btn-secondary" id="cancel-upgrade-modal-btn" style="flex: 1;">
+          Annuler
+        </button>
+        <button type="button" class="btn btn-primary btn-glow" id="confirm-upgrade-action-btn" style="flex: 1.4;">
+          Confirmer l'activation ✨
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2 : Avertissement Downgrade (avec explication des fonctionnalités) -->
+  <div class="modal-overlay" id="downgrade-modal" role="dialog" aria-modal="true">
+    <div class="modal-container" style="max-width: 500px;">
+      <button class="modal-close" id="close-downgrade-modal-btn">&times;</button>
+      
+      <div style="text-align: center; margin-bottom: 18px;">
+        <div style="font-size: 2.2rem; margin-bottom: 8px;">⚠️</div>
+        <h3 style="font-size: 1.35rem; margin-bottom: 6px;">Attention avant de changer de formule</h3>
+        <p style="font-size: 0.88rem; color: var(--text-muted);">
+          Rétrogradation vers la formule <strong id="modal-downgrade-plan-name" style="color: var(--text-main);">Starter</strong>
+        </p>
+      </div>
+
+      <div style="background: #FFFBEB; border: 1.5px solid #FDE68A; border-radius: var(--radius-lg); padding: 18px; margin-bottom: 20px; font-size: 0.86rem; color: #92400E; line-height: 1.55;">
+        <div style="font-weight: 700; margin-bottom: 6px;">Ce qui va changer sur votre compte :</div>
+        <ul style="margin-left: 18px; margin-bottom: 0;">
+          <li id="downgrade-lots-warning">Vos lots de commande existants seront <strong>mis en pause</strong> (conservés mais non modifiables).</li>
+          <li id="downgrade-calc-warning">Vos calculs d'articles individuels restent entièrement conservés.</li>
+          <li>Le changement prendra effet à la fin de votre période de facturation en cours.</li>
+        </ul>
+      </div>
+
+      <div style="display: flex; gap: 12px;">
+        <button type="button" class="btn btn-secondary" id="cancel-downgrade-modal-btn" style="flex: 1;">
+          Conserver mon plan
+        </button>
+        <button type="button" class="btn btn-primary" id="confirm-downgrade-action-btn" style="flex: 1.3; background: #D97706; border-color: #D97706;">
+          Confirmer la formule
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3 : Résiliation sans Dark Pattern -->
+  <div class="modal-overlay" id="cancel-sub-modal" role="dialog" aria-modal="true">
+    <div class="modal-container" style="max-width: 490px;">
+      <button class="modal-close" id="close-cancel-modal-btn">&times;</button>
+      
+      <div style="text-align: center; margin-bottom: 18px;">
+        <div style="font-size: 2.2rem; margin-bottom: 8px;">👋</div>
+        <h3 style="font-size: 1.35rem; margin-bottom: 6px;">Résilier votre abonnement Margeo</h3>
+        <p style="font-size: 0.88rem; color: var(--text-muted);">
+          Nous sommes désolés de vous voir partir.
+        </p>
+      </div>
+
+      <div style="background: #F8FAFC; border: 1.5px solid var(--border-light); border-radius: var(--radius-lg); padding: 18px; margin-bottom: 20px; font-size: 0.88rem; line-height: 1.6; color: var(--text-main);">
+        <p style="margin-bottom: 8px;">
+          • Vous conservez l'accès complet à vos fonctionnalités payantes jusqu'au <strong>30 septembre 2026</strong>.
+        </p>
+        <p style="margin-bottom: 8px;">
+          • Ensuite, votre compte repassera automatiquement sur la formule <strong>Gratuit (5 calculs offerts par mois)</strong>.
+        </p>
+        <p style="margin-bottom: 0; color: var(--text-muted); font-size: 0.82rem;">
+          • Aucun prélèvement futur ne sera effectué. Vos données d'articles restent sauvegardées.
+        </p>
+      </div>
+
+      <div style="display: flex; gap: 12px;">
+        <button type="button" class="btn btn-primary btn-glow" id="abort-cancellation-btn" style="flex: 1.3;">
+          Conserver mon abonnement
+        </button>
+        <button type="button" class="btn btn-secondary" id="confirm-cancellation-btn" style="flex: 1; color: var(--accent-danger); border-color: #FCA5A5;">
+          Confirmer la résiliation
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 4 : Modifier le moyen de paiement -->
+  <div class="modal-overlay" id="edit-payment-modal" role="dialog" aria-modal="true">
+    <div class="modal-container" style="max-width: 440px;">
+      <button class="modal-close" id="close-payment-modal-btn">&times;</button>
+      
+      <h3 style="font-size: 1.3rem; margin-bottom: 6px;">Mettre à jour la carte bancaire</h3>
+      <p style="font-size: 0.84rem; color: var(--text-muted); margin-bottom: 18px;">
+        Vos paiements sont traités de manière sécurisée via Stripe.
+      </p>
+
+      <form id="payment-form" class="modal-form" style="margin-top: 0;">
+        <div class="input-group">
+          <label class="auth-input-label">Numéro de carte</label>
+          <input type="text" class="input-field" placeholder="4242 •••• •••• 4242" value="4242 •••• •••• 4242" required style="font-family: monospace; font-size: 0.95rem;">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="input-group">
+            <label class="auth-input-label">Date d'expiration</label>
+            <input type="text" class="input-field" placeholder="MM/AA" value="12/28" required style="font-family: monospace; font-size: 0.95rem;">
+          </div>
+          <div class="input-group">
+            <label class="auth-input-label">CVC</label>
+            <input type="password" class="input-field" placeholder="•••" value="123" required style="font-family: monospace; font-size: 0.95rem;">
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-glow" style="width: 100%; margin-top: 8px;">
+          Enregistrer la nouvelle carte ✨
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Javascript Store & Settings Engine -->
+  <script src="app-store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Render unified App Sidebar
+      MargeoStore.renderAppSidebar('parametres');
+
+      const user = MargeoStore.getUser();
+
+      // ==========================================
+      // 1. TABS MANAGEMENT & DEEP LINKING
+      // ==========================================
+      const tabs = {
+        profil: { btn: document.getElementById('tab-btn-profil'), pane: document.getElementById('tab-pane-profil') },
+        abonnement: { btn: document.getElementById('tab-btn-abonnement'), pane: document.getElementById('tab-pane-abonnement') },
+        notifications: { btn: document.getElementById('tab-btn-notifications'), pane: document.getElementById('tab-pane-notifications') }
+      };
+
+      function switchTab(tabName) {
+        Object.values(tabs).forEach(t => {
+          t.btn.classList.remove('active');
+          t.pane.style.display = 'none';
+        });
+        if (tabs[tabName]) {
+          tabs[tabName].btn.classList.add('active');
+          tabs[tabName].pane.style.display = 'block';
+        }
+      }
+
+      Object.entries(tabs).forEach(([name, t]) => {
+        t.btn.addEventListener('click', () => {
+          switchTab(name);
+          history.replaceState(null, null, '#' + name);
+        });
+      });
+
+      // Deep link detection
+      if (window.location.hash === '#abonnement') {
+        switchTab('abonnement');
+      } else if (window.location.hash === '#notifications') {
+        switchTab('notifications');
+      }
+
+      // ==========================================
+      // 2. TAB PROFIL
+      // ==========================================
+      const profileEmail = document.getElementById('profile-email');
+      const profileName = document.getElementById('profile-name');
+      const defaultModeParticulier = document.getElementById('default-mode-particulier');
+      const defaultModePro = document.getElementById('default-mode-pro');
+      const saveProfileBtn = document.getElementById('save-profile-btn');
+
+      profileEmail.value = user.email || 'camille.resell@gmail.com';
+      profileName.value = user.name || 'Camille';
+
+      function setDefaultMode(mode) {
+        const isPro = (mode === 'pro');
+        defaultModeParticulier.classList.toggle('active', !isPro);
+        defaultModeParticulier.setAttribute('aria-pressed', !isPro ? 'true' : 'false');
+        defaultModePro.classList.toggle('active', isPro);
+        defaultModePro.setAttribute('aria-pressed', isPro ? 'true' : 'false');
+      }
+
+      setDefaultMode(user.sellerMode || 'particulier');
+      defaultModeParticulier.addEventListener('click', () => setDefaultMode('particulier'));
+      defaultModePro.addEventListener('click', () => setDefaultMode('pro'));
+
+      saveProfileBtn.addEventListener('click', () => {
+        const updatedUser = MargeoStore.getUser();
+        updatedUser.email = profileEmail.value.trim();
+        updatedUser.name = profileName.value.trim();
+        updatedUser.sellerMode = defaultModePro.classList.contains('active') ? 'pro' : 'particulier';
+        MargeoStore.saveUser(updatedUser);
+
+        saveProfileBtn.textContent = '✓ Modifications enregistrées !';
+        saveProfileBtn.style.background = 'var(--accent-success)';
+        setTimeout(() => {
+          saveProfileBtn.textContent = 'Enregistrer les modifications';
+          saveProfileBtn.style.background = '';
+        }, 2000);
+      });
+
+      document.getElementById('change-pwd-btn').addEventListener('click', () => {
+        alert('En production, un formulaire sécurisé de changement de mot de passe avec validation par email s\'ouvrirait ici.');
+      });
+
+      document.getElementById('delete-account-btn').addEventListener('click', () => {
+        if (confirm('Êtes-vous absolument sûr de vouloir supprimer définitivement votre compte Margeo ?\n\nTous vos articles et lots enregistrés seront effacés.')) {
+          localStorage.clear();
+          alert('Compte supprimé (simulé). Redirection vers la page d\'accueil.');
+          window.location.href = 'index.html';
+        }
+      });
+
+      // ==========================================
+      // 3. TAB ABONNEMENT & FACTURATION
+      // ==========================================
+      const planSpecs = {
+        gratuit: {
+          name: 'Gratuit', price: '0 € / mois', isPaid: false, badgeClass: 'badge',
+          renewal: 'Accès offert à vie',
+          features: [
+            '5 calculs complets par mois',
+            'Bilan financier du mois en cours',
+            'Simulateur Particulier & Pro',
+            'Calcul de rentabilité en direct'
+          ]
+        },
+        starter: {
+          name: 'Starter', price: '5 € / mois', isPaid: true, badgeClass: 'badge',
+          renewal: 'Prochain renouvellement le 1er oct. 2026',
+          features: [
+            'Calculs & enregistrements illimités',
+            'Historique complet sur 12 mois',
+            'Import CSV de vos ventes Vinted',
+            'Bilan détaillé du mois'
+          ]
+        },
+        pro: {
+          name: 'Pro Reseller', price: '9 € / mois', isPaid: true, badgeClass: 'badge',
+          renewal: 'Prochain renouvellement le 1er oct. 2026',
+          features: [
+            'Tout Starter inclus (calculs illimités)',
+            'Suivi des Lots d\'achats groupés',
+            'Barre de seuil de rentabilité en direct',
+            'Optimiseur de prix de vente Vinted',
+            'Alerte email hebdomadaire du lundi'
+          ]
+        },
+        empire: {
+          name: 'Empire', price: '24 € / mois', isPaid: true, badgeClass: 'badge',
+          renewal: 'Prochain renouvellement le 1er oct. 2026',
+          features: [
+            'Tout Pro Reseller inclus',
+            'Mode Vinted Pro avec URSSAF 12,3 %',
+            'Export comptable CSV / Excel 1 clic',
+            'Multi-utilisateurs (jusqu\'à 3 accès)',
+            'Gestion par SKU produits',
+            'Support prioritaire 7j/7'
+          ]
+        }
+      };
+
+      const currentPlanDisplay = document.getElementById('current-plan-display');
+      const currentPlanPrice = document.getElementById('current-plan-price');
+      const currentPlanRenewal = document.getElementById('current-plan-renewal');
+      const planBadgePill = document.getElementById('plan-badge-pill');
+      const currentPlanFeatures = document.getElementById('current-plan-features');
+
+      const usageFreeContainer = document.getElementById('usage-free-container');
+      const usagePaidContainer = document.getElementById('usage-paid-container');
+      const usageCountText = document.getElementById('usage-count-text');
+      const usageProgressBar = document.getElementById('usage-progress-bar');
+
+      const paymentSection = document.getElementById('payment-method-section');
+      const billingHistorySection = document.getElementById('billing-history-section');
+      const cancelSubSection = document.getElementById('cancel-sub-section');
+      const canceledPlanAlert = document.getElementById('canceled-plan-alert');
+
+      function renderSubscriptionView() {
+        const currentSpec = planSpecs[user.plan] || planSpecs.gratuit;
+        
+        currentPlanDisplay.textContent = currentSpec.name;
+        currentPlanPrice.textContent = currentSpec.price.split(' ')[0] + ' €';
+        currentPlanRenewal.textContent = currentSpec.renewal;
+        planBadgePill.textContent = currentSpec.name;
+
+        // Render included features
+        currentPlanFeatures.innerHTML = currentSpec.features.map(f => `
+          <li style="font-size: 0.88rem; color: var(--primary-100); display: flex; align-items: center; gap: 8px;">
+            <span style="color: #34D399; font-weight: 800;">✓</span> ${f}
+          </li>
+        `).join('');
+
+        // Usage tracker
+        if (currentSpec.isPaid) {
+          usageFreeContainer.style.display = 'none';
+          usagePaidContainer.style.display = 'flex';
+          paymentSection.style.display = 'block';
+          billingHistorySection.style.display = 'block';
+          cancelSubSection.style.display = 'block';
+        } else {
+          usageFreeContainer.style.display = 'block';
+          usagePaidContainer.style.display = 'none';
+          paymentSection.style.display = 'none';
+          billingHistorySection.style.display = 'none';
+          cancelSubSection.style.display = 'none';
+
+          const used = user.monthlyCalculationsUsed || 3;
+          usageCountText.textContent = `${used} / 5 calculs utilisés`;
+          const pct = Math.min(100, (used / 5) * 100);
+          usageProgressBar.style.width = pct + '%';
+          if (used >= 5) {
+            usageProgressBar.style.background = 'var(--accent-warning)';
+          }
+        }
+
+        // Highlight in comparison grid
+        document.querySelectorAll('.plan-compare-card').forEach(card => card.classList.remove('current'));
+        const currentCard = document.getElementById('plan-card-' + user.plan);
+        if (currentCard) currentCard.classList.add('current');
+
+        document.querySelectorAll('.plan-select-btn').forEach(btn => {
+          const p = btn.dataset.plan;
+          if (p === user.plan) {
+            btn.textContent = '✓ Formule active';
+            btn.disabled = true;
+            btn.className = 'btn btn-secondary btn-sm plan-select-btn';
+            btn.style.width = '100%';
+          } else {
+            btn.disabled = false;
+            btn.textContent = p === 'gratuit' ? 'Passer en Gratuit' : `Choisir ${planSpecs[p].name}`;
+            btn.className = (p === 'pro' || p === 'empire' || p === 'starter') ? 'btn btn-primary btn-sm plan-select-btn' : 'btn btn-secondary btn-sm plan-select-btn';
+          }
+        });
+
+        // Render mock invoices
+        if (currentSpec.isPaid) {
+          renderInvoices();
+        }
+      }
+
+      function renderInvoices() {
+        const invoicesTbody = document.getElementById('invoices-tbody');
+        const months = [
+          { date: '01/08/2026', ref: '#MRG-20260801', amount: '9,00 €', status: 'Payée' },
+          { date: '01/07/2026', ref: '#MRG-20260701', amount: '9,00 €', status: 'Payée' },
+          { date: '01/06/2026', ref: '#MRG-20260601', amount: '9,00 €', status: 'Payée' },
+          { date: '01/05/2026', ref: '#MRG-20260501', amount: '9,00 €', status: 'Payée' },
+          { date: '01/04/2026', ref: '#MRG-20260401', amount: '9,00 €', status: 'Payée' },
+          { date: '01/03/2026', ref: '#MRG-20260301', amount: '9,00 €', status: 'Payée' }
+        ];
+
+        invoicesTbody.innerHTML = months.map(inv => `
+          <tr>
+            <td><strong>${inv.date}</strong></td>
+            <td><span style="font-family: monospace; color: var(--text-muted);">${inv.ref}</span></td>
+            <td><strong>${inv.amount}</strong></td>
+            <td><span class="app-badge-status sold">✓ ${inv.status}</span></td>
+            <td style="text-align: right;">
+              <button class="btn btn-secondary btn-sm" onclick="downloadInvoice('${inv.ref}')" style="padding: 4px 10px; font-size: 0.78rem;">
+                📥 Télécharger PDF
+              </button>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      window.downloadInvoice = function(ref) {
+        alert(`Téléchargement de la facture ${ref} au format PDF (simulation réussie).`);
+      };
+
+      renderSubscriptionView();
+
+      // Toggle comparison view
+      const toggleChangePlanBtn = document.getElementById('toggle-change-plan-btn');
+      const closeComparisonBtn = document.getElementById('close-comparison-btn');
+      const comparisonSection = document.getElementById('plans-comparison-section');
+
+      toggleChangePlanBtn.addEventListener('click', () => {
+        const isHidden = comparisonSection.style.display === 'none';
+        comparisonSection.style.display = isHidden ? 'block' : 'none';
+        if (isHidden) {
+          comparisonSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      });
+
+      closeComparisonBtn.addEventListener('click', () => {
+        comparisonSection.style.display = 'none';
+      });
+
+      // ==========================================
+      // 4. PLAN CHANGE FLOWS (UPGRADE / DOWNGRADE MODALS)
+      // ==========================================
+      const upgradeModal = document.getElementById('upgrade-modal');
+      const downgradeModal = document.getElementById('downgrade-modal');
+      let targetPlanToSwitch = null;
+
+      document.querySelectorAll('.plan-select-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetPlan = btn.dataset.plan;
+          if (targetPlan === user.plan) return;
+          targetPlanToSwitch = targetPlan;
+
+          const planHierarchy = { gratuit: 0, starter: 1, pro: 2, empire: 3 };
+          const isUpgrade = (planHierarchy[targetPlan] > planHierarchy[user.plan]);
+
+          if (isUpgrade) {
+            // Open Upgrade Modal with Prorata
+            const targetSpec = planSpecs[targetPlan];
+            document.getElementById('modal-upgrade-plan-name').textContent = targetSpec.name;
+            document.getElementById('modal-upgrade-standard-price').textContent = targetSpec.price;
+            
+            // Simple dynamic prorata calculation demo
+            const standardNum = parseInt(targetSpec.price);
+            const prorataNum = (standardNum * 0.45).toFixed(2).replace('.', ',');
+            document.getElementById('modal-upgrade-prorata-price').textContent = prorataNum + ' €';
+            document.getElementById('modal-upgrade-due-price').textContent = prorataNum + ' €';
+
+            upgradeModal.classList.add('active');
+          } else {
+            // Open Downgrade Warning Modal
+            const targetSpec = planSpecs[targetPlan];
+            document.getElementById('modal-downgrade-plan-name').textContent = targetSpec.name;
+            
+            const lotsWarningEl = document.getElementById('downgrade-lots-warning');
+            if (targetPlan === 'gratuit' || targetPlan === 'starter') {
+              lotsWarningEl.style.display = 'list-item';
+            } else {
+              lotsWarningEl.style.display = 'none';
+            }
+
+            downgradeModal.classList.add('active');
+          }
+        });
+      });
+
+      // Confirm Upgrade
+      document.getElementById('confirm-upgrade-action-btn').addEventListener('click', () => {
+        if (!targetPlanToSwitch) return;
+        user.plan = targetPlanToSwitch;
+        MargeoStore.setUserPlan(targetPlanToSwitch);
+
+        upgradeModal.classList.remove('active');
+        alert(`Félicitations ! Votre formule ${planSpecs[targetPlanToSwitch].name} est désormais active ✨`);
+        window.location.reload();
+      });
+
+      // Confirm Downgrade
+      document.getElementById('confirm-downgrade-action-btn').addEventListener('click', () => {
+        if (!targetPlanToSwitch) return;
+        user.plan = targetPlanToSwitch;
+        MargeoStore.setUserPlan(targetPlanToSwitch);
+
+        downgradeModal.classList.remove('active');
+        alert(`Votre formule a été mise à jour vers ${planSpecs[targetPlanToSwitch].name}.`);
+        window.location.reload();
+      });
+
+      // Modal close handlers
+      document.getElementById('close-upgrade-modal-btn').addEventListener('click', () => upgradeModal.classList.remove('active'));
+      document.getElementById('cancel-upgrade-modal-btn').addEventListener('click', () => upgradeModal.classList.remove('active'));
+      document.getElementById('close-downgrade-modal-btn').addEventListener('click', () => downgradeModal.classList.remove('active'));
+      document.getElementById('cancel-downgrade-modal-btn').addEventListener('click', () => downgradeModal.classList.remove('active'));
+
+      // ==========================================
+      // 5. CANCELLATION FLOW (NO DARK PATTERNS)
+      // ==========================================
+      const cancelSubModal = document.getElementById('cancel-sub-modal');
+      const openCancelModalBtn = document.getElementById('open-cancel-modal-btn');
+      const closeCancelModalBtn = document.getElementById('close-cancel-modal-btn');
+      const abortCancellationBtn = document.getElementById('abort-cancellation-btn');
+      const confirmCancellationBtn = document.getElementById('confirm-cancellation-btn');
+      const reactivateSubBtn = document.getElementById('reactivate-sub-btn');
+
+      if (openCancelModalBtn) {
+        openCancelModalBtn.addEventListener('click', () => cancelSubModal.classList.add('active'));
+      }
+      if (closeCancelModalBtn) {
+        closeCancelModalBtn.addEventListener('click', () => cancelSubModal.classList.remove('active'));
+      }
+      if (abortCancellationBtn) {
+        abortCancellationBtn.addEventListener('click', () => cancelSubModal.classList.remove('active'));
+      }
+
+      if (confirmCancellationBtn) {
+        confirmCancellationBtn.addEventListener('click', () => {
+          cancelSubModal.classList.remove('active');
+          canceledPlanAlert.style.display = 'flex';
+          cancelSubSection.style.display = 'none';
+          
+          alert('Votre résiliation a bien été prise en compte. Votre accès reste ouvert jusqu\'à la fin du cycle en cours.');
+        });
+      }
+
+      if (reactivateSubBtn) {
+        reactivateSubBtn.addEventListener('click', () => {
+          canceledPlanAlert.style.display = 'none';
+          cancelSubSection.style.display = 'block';
+          alert('Votre abonnement a été réactivé avec succès ! ✨');
+        });
+      }
+
+      // ==========================================
+      // 6. PAYMENT MODAL
+      // ==========================================
+      const editPaymentModal = document.getElementById('edit-payment-modal');
+      const editPaymentBtn = document.getElementById('edit-payment-btn');
+      const closePaymentModalBtn = document.getElementById('close-payment-modal-btn');
+      const paymentForm = document.getElementById('payment-form');
+
+      if (editPaymentBtn) {
+        editPaymentBtn.addEventListener('click', () => editPaymentModal.classList.add('active'));
+      }
+      if (closePaymentModalBtn) {
+        closePaymentModalBtn.addEventListener('click', () => editPaymentModal.classList.remove('active'));
+      }
+      if (paymentForm) {
+        paymentForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          editPaymentModal.classList.remove('active');
+          alert('Vos coordonnées de carte bancaire ont été mises à jour avec succès !');
+        });
+      }
+
+      // ==========================================
+      // 7. TAB NOTIFICATIONS & AUTO-SAVE
+      // ==========================================
+      const toggleWeekly = document.getElementById('toggle-weekly');
+      const toggleMonthly = document.getElementById('toggle-monthly');
+      const toggleBreakeven = document.getElementById('toggle-breakeven');
+      const toggleLimitWarning = document.getElementById('toggle-limit-warning');
+      const toggleProductTips = document.getElementById('toggle-product-tips');
+      const notifSavedToast = document.getElementById('notif-saved-toast');
+
+      const weeklyPlanTag = document.getElementById('weekly-plan-tag');
+      const breakevenPlanTag = document.getElementById('breakeven-plan-tag');
+      const limitAlertRow = document.getElementById('limit-alert-row');
+
+      // Populate current user preferences
+      toggleWeekly.checked = (user.weeklyEmailAlert === true);
+      toggleMonthly.checked = (user.monthlyEmailAlert !== false);
+      toggleBreakeven.checked = (user.breakevenAlert !== false);
+      toggleLimitWarning.checked = (user.limitWarningAlert !== false);
+      toggleProductTips.checked = (user.productTipsAlert !== false);
+
+      // Lock gating for Weekly & Breakeven if on Free or Starter
+      const isProOrEmpire = (user.plan === 'pro' || user.plan === 'empire');
+      if (!isProOrEmpire) {
+        toggleWeekly.disabled = true;
+        toggleWeekly.checked = false;
+        toggleBreakeven.disabled = true;
+        toggleBreakeven.checked = false;
+        weeklyPlanTag.title = 'Disponible à partir de la formule Pro Reseller';
+        breakevenPlanTag.title = 'Disponible à partir de la formule Pro Reseller';
+      } else {
+        weeklyPlanTag.style.display = 'none';
+        breakevenPlanTag.style.display = 'none';
+      }
+
+      // Free plan limit toggle visibility
+      if (user.plan !== 'gratuit') {
+        limitAlertRow.style.display = 'none';
+      }
+
+      // Auto-save function with smooth floating toast
+      let toastTimer = null;
+      function showAutoSaveToast() {
+        notifSavedToast.style.display = 'flex';
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          notifSavedToast.style.display = 'none';
+        }, 1800);
+      }
+
+      function saveNotificationPrefs() {
+        const updatedUser = MargeoStore.getUser();
+        updatedUser.weeklyEmailAlert = toggleWeekly.checked;
+        updatedUser.monthlyEmailAlert = toggleMonthly.checked;
+        updatedUser.breakevenAlert = toggleBreakeven.checked;
+        updatedUser.limitWarningAlert = toggleLimitWarning.checked;
+        updatedUser.productTipsAlert = toggleProductTips.checked;
+        MargeoStore.saveUser(updatedUser);
+        
+        showAutoSaveToast();
+      }
+
+      [toggleWeekly, toggleMonthly, toggleBreakeven, toggleLimitWarning, toggleProductTips].forEach(t => {
+        t.addEventListener('change', saveNotificationPrefs);
+      });
+    });
+  </script>
+
+  <style>
+    /* Settings-specific Styles */
+    .settings-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .settings-field-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .settings-toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border-light);
+      gap: 16px;
+    }
+
+    .settings-toggle-row:last-of-type {
+      border-bottom: none;
+    }
+
+    .settings-toggle-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .settings-toggle-desc {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      max-width: 480px;
+      line-height: 1.45;
+    }
+
+    .settings-plan-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      background: #FEF3C7;
+      color: #92400E;
+    }
+
+    /* Toggle Switch */
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 26px;
+      flex-shrink: 0;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #CBD5E1;
+      border-radius: 26px;
+      transition: all 0.25s ease;
+    }
+
+    .toggle-slider::before {
+      content: '';
+      position: absolute;
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #FFFFFF;
+      border-radius: 50%;
+      transition: all 0.25s ease;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    }
+
+    .toggle-switch input:checked + .toggle-slider {
+      background-color: var(--primary-500);
+    }
+
+    .toggle-switch input:checked + .toggle-slider::before {
+      transform: translateX(22px);
+    }
+
+    .toggle-switch input:disabled + .toggle-slider {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    /* Comparison Plans Grid */
+    .plans-comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 1024px) {
+      .plans-comparison-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .plans-comparison-grid {
+        grid-template-columns: 1fr;
+        max-width: 380px;
+      }
+    }
+
+    .plan-compare-card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 22px 18px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .plan-compare-card:hover {
+      border-color: var(--primary-300);
+      box-shadow: 0 6px 18px rgba(99, 102, 241, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .plan-compare-card.recommended {
+      border-color: var(--primary-500);
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.15);
+    }
+
+    .plan-compare-card.current {
+      border-color: var(--accent-success);
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+    }
+
+    .plan-popular-badge {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--violet-gradient-subtle);
+      color: #FFFFFF;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: var(--radius-full);
+      white-space: nowrap;
+    }
+
+    .plan-compare-header {
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .plan-compare-name {
+      font-size: 1.1rem;
+      font-weight: 800;
+      font-family: var(--font-heading);
+      margin-bottom: 4px;
+    }
+
+    .plan-compare-price {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary-700);
+    }
+
+    .plan-compare-price span {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .plan-compare-features {
+      list-style: none;
+      flex: 1;
+      margin-bottom: 16px;
+    }
+
+    .plan-compare-features li {
+      font-size: 0.82rem;
+      padding: 5px 0;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    .plan-compare-features li.locked {
+      color: var(--text-subtle);
+      opacity: 0.6;
+    }
+  </style>
+</body>
+</html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulateur de Marge — Margeo App</title>
+  <meta name="description" content="Calculez et enregistrez instantanément vos marges réelles de vente sur Vinted.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟣</text></svg>">
+</head>
+<body class="app-layout">
+
+  <!-- Unified Dynamic Sidebar Container -->
+  <div id="app-sidebar-container"></div>
+
+  <!-- App Main Content Area -->
+  <main class="app-main">
+    
+    <!-- Top Header Row -->
+    <div class="app-header-row">
+      <div class="app-page-heading">
+        <h1>Simulateur de Marge Réelle ⚡</h1>
+        <p class="app-page-subtitle">Saisissez les paramètres de votre article pour calculer et enregistrer votre gain net.</p>
+      </div>
+
+      <div class="app-header-actions">
+        <a href="app-suivi.html" class="btn btn-secondary btn-sm">
+          <span>Voir le suivi du mois →</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Free Plan Limit Alert Banner (if limit reached) -->
+    <div class="app-limit-alert-banner" id="limit-banner" style="display: none;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 1.2rem;">⚠️</span>
+        <div>
+          <strong>Limite mensuelle atteinte (5/5) :</strong> Vous pouvez continuer à simuler, mais l'enregistrement d'articles nécessite la formule Starter.
+        </div>
+      </div>
+      <a href="app-parametres.html#abonnement" class="btn btn-secondary btn-sm" style="background:#FFFFFF; font-weight:700; color:#92400E; border-color:#FDE68A;">
+        Passer à Starter (5€/m)
+      </a>
+    </div>
+
+    <!-- Simulator Form & Live Results Grid -->
+    <div style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 28px; align-items: start;">
+      
+      <!-- Left: Article Parameters Form -->
+      <div class="calculator-card" style="padding: 28px;">
+        
+        <!-- Toggle Mode Vendeur Particulier vs Pro (Accessible) -->
+        <div class="seller-mode-switcher" role="group" aria-label="Choix du profil de vendeur">
+          <button type="button" class="mode-btn active" id="mode-particulier-btn" role="button" aria-pressed="true" tabindex="0">
+            <span>👤 Vendeur particulier</span>
+          </button>
+          <button type="button" class="mode-btn" id="mode-pro-btn" role="button" aria-pressed="false" tabindex="0">
+            <span>💼 Vendeur Vinted Pro</span>
+            <span class="mode-info-tooltip" title="Pour les comptes Vinted Pro (5% commission)">?</span>
+          </button>
+        </div>
+
+        <div class="mode-notice-banner" id="mode-notice-banner">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          <div id="mode-notice-text">
+            <strong>Mode Particulier :</strong> Vinted ne prend aucune commission au vendeur particulier (vous recevez 100 % du prix affiché).
+          </div>
+        </div>
+
+        <form class="calc-form" id="sim-app-form" onsubmit="return false;">
+          
+          <!-- Article Name & Source Fields (New for App) -->
+          <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 14px; margin-bottom: 16px;">
+            <div class="input-group">
+              <label for="app-art-name" style="font-size: 0.85rem; font-weight: 600;">Nom de l'article</label>
+              <input type="text" id="app-art-name" class="input-field" placeholder="ex: Veste en jean vintage" value="Veste en jean Levi's vintage" style="font-size: 0.95rem; padding: 10px 12px;">
+            </div>
+
+            <div class="input-group">
+              <label for="app-art-source" style="font-size: 0.85rem; font-weight: 600;">Source d'achat</label>
+              <select id="app-art-source" class="input-field" style="font-size: 0.9rem; padding: 10px 12px; font-weight: 600;">
+                <option value="Brocante">Brocante / Vide-grenier</option>
+                <option value="Friperie">Friperie</option>
+                <option value="Outlet">Outlet / Déstockage</option>
+                <option value="Dépôt-vente">Dépôt-vente</option>
+                <option value="Grossiste">Carton grossiste</option>
+                <option value="Dressing perso">Dressing personnel (0€)</option>
+                <option value="Autre">Autre</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 2 Main Numbers: Prix d'Achat & Prix de Vente -->
+          <div class="calc-simple-grid">
+            <div class="input-group">
+              <div class="input-label-row">
+                <label for="buy-price">Prix payé à l'achat</label>
+              </div>
+              <div class="input-wrapper">
+                <input type="number" id="buy-price" class="input-field" value="8" min="0" step="0.5" placeholder="0,00">
+                <span class="currency-unit">€</span>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <div class="input-label-row">
+                <label for="sell-price">Prix vendu sur Vinted</label>
+              </div>
+              <div class="input-wrapper">
+                <input type="number" id="sell-price" class="input-field" value="35" min="0" step="0.5" placeholder="0,00">
+                <span class="currency-unit">€</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pro Commission Config (Shown when Pro Mode) -->
+          <div class="pro-fields-container" id="pro-fields-container">
+            <div class="input-group">
+              <label for="pro-commission-rate" style="font-size: 0.8rem; font-weight: 600;">Commission Vinted Pro (%)</label>
+              <div class="input-wrapper">
+                <input type="number" id="pro-commission-rate" class="input-field" value="5" min="0" max="25" step="0.5">
+                <span class="currency-unit">%</span>
+              </div>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; justify-content: center; gap: 4px;">
+              <label style="display: flex; align-items: center; gap: 8px; font-size: 0.8rem; cursor: pointer; color: var(--text-main); font-weight: 600;">
+                <input type="checkbox" id="pro-vat-toggle" style="accent-color: var(--primary-600); width: 16px; height: 16px;">
+                <span>TVA 20% sur commission</span>
+              </label>
+              <span style="font-size: 0.72rem; color: #78350F;">Selon statut assujetti</span>
+            </div>
+          </div>
+
+          <!-- Optional Extras (Frais de port & Emballage) -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px;">
+            <div class="input-group">
+              <label for="package-cost" style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Frais d'emballage (optionnel)</label>
+              <div class="input-wrapper">
+                <input type="number" id="package-cost" class="input-field" value="0" min="0" step="0.5" placeholder="0,00" style="font-size: 1rem; padding: 8px 32px 8px 10px;">
+                <span class="currency-unit" style="font-size: 0.85rem;">€</span>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="shipping-offered" style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Port offert par vous (si applicable)</label>
+              <div class="input-wrapper">
+                <input type="number" id="shipping-offered" class="input-field" value="0" min="0" step="0.5" placeholder="0,00" style="font-size: 1rem; padding: 8px 32px 8px 10px;">
+                <span class="currency-unit" style="font-size: 0.85rem;">€</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rattacher à un lot (Pro Reseller+) -->
+          <div class="input-group" id="lot-select-group" style="margin-bottom: 18px;">
+            <label for="app-art-lot" style="font-size: 0.82rem; font-weight: 600;">Rattacher à un Lot de commande (optionnel)</label>
+            <select id="app-art-lot" class="input-field" style="font-size: 0.9rem; padding: 8px 12px; font-weight: 600;">
+              <option value="">Aucun lot (Vente individuelle)</option>
+              <option value="lot-1">Commande d'achat groupé #1 (235,00 €)</option>
+            </select>
+          </div>
+
+          <!-- Action Save Button -->
+          <button type="button" class="btn btn-primary btn-lg btn-glow" id="save-article-btn" style="width: 100%;">
+            <span>💾 Enregistrer cet article dans mon suivi</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Right: Real-time Profit Card & Breakdown -->
+      <div>
+        
+        <!-- Profit Result Summary Card -->
+        <div class="calc-results-simple" style="padding: 26px;">
+          <div class="result-stat-label">Bénéfice Net en Poche</div>
+          <div class="result-stat-value profit-positive" id="net-profit-display" style="font-size: 2.6rem; margin-bottom: 8px;">+27,00 €</div>
+          
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 12px;">
+            <span style="font-size: 0.85rem; color: var(--primary-200);">Taux de Marge Nette :</span>
+            <strong style="font-size: 1.25rem; color: #34D399;" id="margin-percent-display">+77,1 %</strong>
+          </div>
+        </div>
+
+        <!-- Buyer Extra Info -->
+        <div class="buyer-info-banner">
+          <div class="buyer-info-left">
+            <span class="buyer-info-badge">Acheteur</span>
+            <span>Ce que paie l'acheteur en plus :</span>
+          </div>
+          <div class="buyer-total-val" id="buyer-extra-fee-display">5,74 €</div>
+        </div>
+
+        <!-- Breakdown Box -->
+        <div class="app-section-card" style="padding: 20px; margin-bottom: 0;">
+          <div style="font-size: 0.92rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+            <span>📋 Décomposition exacte du calcul</span>
+          </div>
+
+          <div class="breakdown-row">
+            <span>Prix affiché sur Vinted :</span>
+            <span id="bd-sell-price">35,00 €</span>
+          </div>
+          <div class="breakdown-row">
+            <span>Coût d'achat de la pièce :</span>
+            <span class="val-minus" id="bd-buy-price">- 8,00 €</span>
+          </div>
+          <div class="breakdown-row" id="bd-commission-row" style="display: none;">
+            <span>Commission Vinted Pro :</span>
+            <span class="val-minus" id="bd-commission-val">- 1,75 €</span>
+          </div>
+          <div class="breakdown-row" id="bd-shipping-offered-row" style="display: none;">
+            <span>Port offert :</span>
+            <span class="val-minus" id="bd-shipping-offered-val">- 0,00 €</span>
+          </div>
+          <div class="breakdown-row" id="bd-package-row" style="display: none;">
+            <span>Frais d'emballage :</span>
+            <span class="val-minus" id="bd-package-val">- 0,00 €</span>
+          </div>
+          <div class="breakdown-row">
+            <span>Bénéfice net calculé :</span>
+            <span class="val-plus" id="bd-net-profit">+27,00 €</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <script src="app-store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      MargeoStore.renderAppSidebar('simulateur');
+
+      const user = MargeoStore.getUser();
+      let currentMode = user.sellerMode || 'particulier';
+
+      const modeParticulierBtn = document.getElementById('mode-particulier-btn');
+      const modeProBtn = document.getElementById('mode-pro-btn');
+      const modeNoticeBanner = document.getElementById('mode-notice-banner');
+      const modeNoticeText = document.getElementById('mode-notice-text');
+      const proFieldsContainer = document.getElementById('pro-fields-container');
+
+      const artNameInput = document.getElementById('app-art-name');
+      const artSourceSelect = document.getElementById('app-art-source');
+      const buyPriceInput = document.getElementById('buy-price');
+      const sellPriceInput = document.getElementById('sell-price');
+      const packageCostInput = document.getElementById('package-cost');
+      const shippingOfferedInput = document.getElementById('shipping-offered');
+      const proCommissionInput = document.getElementById('pro-commission-rate');
+      const proTaxVatCheckbox = document.getElementById('pro-vat-toggle');
+      const artLotSelect = document.getElementById('app-art-lot');
+
+      const netProfitDisplay = document.getElementById('net-profit-display');
+      const marginPercentDisplay = document.getElementById('margin-percent-display');
+      const buyerExtraFeeDisplay = document.getElementById('buyer-extra-fee-display');
+
+      const bdSellPrice = document.getElementById('bd-sell-price');
+      const bdBuyPrice = document.getElementById('bd-buy-price');
+      const bdCommissionRow = document.getElementById('bd-commission-row');
+      const bdCommissionVal = document.getElementById('bd-commission-val');
+      const bdShippingOfferedRow = document.getElementById('bd-shipping-offered-row');
+      const bdShippingOfferedVal = document.getElementById('bd-shipping-offered-val');
+      const bdPackageRow = document.getElementById('bd-package-row');
+      const bdPackageVal = document.getElementById('bd-package-val');
+      const bdNetProfit = document.getElementById('bd-net-profit');
+
+      const saveBtn = document.getElementById('save-article-btn');
+      const limitBanner = document.getElementById('limit-banner');
+
+      // Check limit
+      const isLimitReached = (user.plan === 'gratuit' && user.monthlyCalculationsUsed >= 5);
+      if (isLimitReached) {
+        limitBanner.style.display = 'flex';
+        saveBtn.disabled = true;
+        saveBtn.style.opacity = '0.6';
+        saveBtn.style.cursor = 'not-allowed';
+        saveBtn.innerHTML = '<span>🔒 Limite atteinte (5/5) — Passez à Starter</span>';
+      }
+
+      function updateCalc() {
+        const buy = parseFloat(buyPriceInput.value) || 0;
+        const sell = parseFloat(sellPriceInput.value) || 0;
+        const packageCost = parseFloat(packageCostInput.value) || 0;
+        const shippingOffered = parseFloat(shippingOfferedInput.value) || 0;
+        const proCommissionRate = parseFloat(proCommissionInput.value) || 5;
+        const isVat = proTaxVatCheckbox.checked;
+
+        let comm = 0;
+        let vat = 0;
+        if (currentMode === 'pro') {
+          comm = sell * (proCommissionRate / 100);
+          if (isVat) vat = comm * 0.20;
+        }
+
+        const netProfit = sell - comm - vat - buy - shippingOffered - packageCost;
+        const marginPercent = sell > 0 ? ((netProfit / sell) * 100) : 0;
+
+        netProfitDisplay.textContent = (netProfit >= 0 ? '+' : '') + MargeoStore.formatEuro(netProfit);
+        netProfitDisplay.className = netProfit >= 0 ? 'result-stat-value profit-positive' : 'result-stat-value profit-negative';
+        marginPercentDisplay.textContent = (marginPercent >= 0 ? '+' : '') + MargeoStore.formatPercent(marginPercent);
+
+        // Buyer fee calculation
+        const buyerProtection = sell > 0 ? (0.70 + (sell * 0.05)) : 0;
+        const buyerShipping = sell > 0 ? 3.29 : 0;
+        buyerExtraFeeDisplay.textContent = MargeoStore.formatEuro(buyerProtection + buyerShipping);
+
+        // Breakdown updates
+        bdSellPrice.textContent = MargeoStore.formatEuro(sell);
+        bdBuyPrice.textContent = '- ' + MargeoStore.formatEuro(buy);
+        
+        if (currentMode === 'pro') {
+          bdCommissionRow.style.display = 'flex';
+          bdCommissionVal.textContent = '- ' + MargeoStore.formatEuro(comm + vat);
+        } else {
+          bdCommissionRow.style.display = 'none';
+        }
+
+        if (shippingOffered > 0) {
+          bdShippingOfferedRow.style.display = 'flex';
+          bdShippingOfferedVal.textContent = '- ' + MargeoStore.formatEuro(shippingOffered);
+        } else {
+          bdShippingOfferedRow.style.display = 'none';
+        }
+
+        if (packageCost > 0) {
+          bdPackageRow.style.display = 'flex';
+          bdPackageVal.textContent = '- ' + MargeoStore.formatEuro(packageCost);
+        } else {
+          bdPackageRow.style.display = 'none';
+        }
+
+        bdNetProfit.textContent = (netProfit >= 0 ? '+' : '') + MargeoStore.formatEuro(netProfit);
+        bdNetProfit.className = netProfit >= 0 ? 'val-plus' : 'val-minus';
+      }
+
+      function setMode(mode) {
+        currentMode = mode;
+        const isPro = (mode === 'pro');
+        modeParticulierBtn.classList.toggle('active', !isPro);
+        modeParticulierBtn.setAttribute('aria-pressed', !isPro ? 'true' : 'false');
+        modeProBtn.classList.toggle('active', isPro);
+        modeProBtn.setAttribute('aria-pressed', isPro ? 'true' : 'false');
+        proFieldsContainer.classList.toggle('show', isPro);
+
+        if (isPro) {
+          modeNoticeBanner.className = 'mode-notice-banner pro-mode';
+          modeNoticeText.innerHTML = '<strong>Mode Vinted Pro :</strong> Commission vendeur de 5 % déduite + TVA configurable.';
+        } else {
+          modeNoticeBanner.className = 'mode-notice-banner';
+          modeNoticeText.innerHTML = '<strong>Mode Particulier :</strong> Vinted ne prend <u>aucune commission</u> au vendeur particulier (100 % du prix encaissé).';
+        }
+        updateCalc();
+      }
+
+      modeParticulierBtn.addEventListener('click', () => setMode('particulier'));
+      modeProBtn.addEventListener('click', () => setMode('pro'));
+
+      [buyPriceInput, sellPriceInput, packageCostInput, shippingOfferedInput, proCommissionInput].forEach(i => {
+        i.addEventListener('input', updateCalc);
+      });
+      proTaxVatCheckbox.addEventListener('change', updateCalc);
+
+      setMode(currentMode);
+
+      // Save Article Action
+      saveBtn.addEventListener('click', () => {
+        if (isLimitReached) return;
+
+        const newArt = {
+          name: artNameInput.value.trim() || 'Article sans nom',
+          source: artSourceSelect.value,
+          buyPrice: parseFloat(buyPriceInput.value) || 0,
+          sellPrice: parseFloat(sellPriceInput.value) || 0,
+          shippingOffered: parseFloat(shippingOfferedInput.value) || 0,
+          packageCost: parseFloat(packageCostInput.value) || 0,
+          status: 'sold',
+          lotId: artLotSelect.value || null
+        };
+
+        MargeoStore.addArticle(newArt);
+
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = '<span>✓ Article enregistré ! Redirection...</span>';
+        saveBtn.style.background = 'var(--accent-success)';
+
+        setTimeout(() => {
+          window.location.href = 'app-suivi.html';
+        }, 700);
+      });
+    });
+  </script>
+</body>
+</html>

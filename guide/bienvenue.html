@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bienvenue sur Margeo — Personnalisation</title>
+  <meta name="description" content="Configurez votre profil de vendeur en 1 clic pour obtenir des calculs de marge parfaitement adaptés.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟣</text></svg>">
+</head>
+<body class="auth-page">
+
+  <!-- Ambient Glow -->
+  <div class="bg-ambient-glow" aria-hidden="true">
+    <div class="glow-orb-1"></div>
+    <div class="glow-orb-2"></div>
+  </div>
+
+  <!-- Minimal Header -->
+  <header class="auth-header">
+    <div class="container auth-header-inner" style="justify-content: center;">
+      <a href="index.html" class="logo" aria-label="Accueil Margeo">
+        <div class="logo-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="1" x2="12" y2="23"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+        </div>
+        <span>Margeo<span class="text-gradient">.</span></span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Micro Onboarding Content Wrapper -->
+  <div class="auth-main-wrapper">
+    <div class="onboarding-wrapper">
+      
+      <div class="onboarding-step-pill">
+        <span>⚡ Étape 1/1 — Personnalisation</span>
+      </div>
+
+      <h1 class="onboarding-title">Une dernière chose avant de commencer</h1>
+      <p class="onboarding-subtitle">
+        Tu vends plutôt comme... ? Choisis ton profil pour activer les bonnes formules de calcul.
+      </p>
+
+      <!-- 2 Interactive Profile Choice Cards -->
+      <div class="profile-choice-grid">
+        
+        <!-- Option 1: Particulier -->
+        <div class="profile-choice-card selected" id="card-particulier" data-mode="particulier" role="button" tabindex="0">
+          <div class="choice-icon-box">👤</div>
+          <div class="choice-name">Particulier</div>
+          <div class="choice-desc">
+            Je vide mon dressing ou je revends des pièces personnelles. Aucune commission vendeur n'est prélevée.
+          </div>
+          <div class="choice-tag">✓ 0 % commission vendeur</div>
+        </div>
+
+        <!-- Option 2: Vinted Pro -->
+        <div class="profile-choice-card" id="card-pro" data-mode="pro" role="button" tabindex="0">
+          <div class="choice-icon-box">💼</div>
+          <div class="choice-name">Vendeur Vinted Pro</div>
+          <div class="choice-desc">
+            J'ai un compte Vinted Pro avec un statut d'entreprise ou d'auto-entrepreneur (5 % de commission).
+          </div>
+          <div class="choice-tag">⚙️ Calcul pro & TVA</div>
+        </div>
+
+      </div>
+
+      <!-- Main Action Button -->
+      <button type="button" class="btn btn-primary btn-lg btn-glow" id="confirm-choice-btn" style="width: 100%; max-width: 360px;">
+        <span>Accéder à mon espace →</span>
+      </button>
+
+      <div>
+        <a href="app.html" class="onboarding-skip-link" id="skip-link">
+          Passer cette étape (modifiable à tout moment dans les réglages)
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Discreet Footer -->
+  <footer class="auth-discreet-footer">
+    <span>© 2026 Margeo SAS</span>
+    <span>•</span>
+    <a href="mentions-legales.html">Mentions Légales</a>
+    <span>•</span>
+    <a href="politique-de-confidentialite.html">Confidentialité</a>
+  </footer>
+
+  <script>
+    const cardParticulier = document.getElementById('card-particulier');
+    const cardPro = document.getElementById('card-pro');
+    const confirmBtn = document.getElementById('confirm-choice-btn');
+    const skipLink = document.getElementById('skip-link');
+
+    let selectedMode = 'particulier';
+
+    function selectMode(mode) {
+      selectedMode = mode;
+      if (mode === 'particulier') {
+        cardParticulier.classList.add('selected');
+        cardPro.classList.remove('selected');
+      } else {
+        cardPro.classList.add('selected');
+        cardParticulier.classList.remove('selected');
+      }
+    }
+
+    cardParticulier.addEventListener('click', () => selectMode('particulier'));
+    cardPro.addEventListener('click', () => selectMode('pro'));
+
+    // Keyboard navigation
+    cardParticulier.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        selectMode('particulier');
+      }
+    });
+    cardPro.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        selectMode('pro');
+      }
+    });
+
+    confirmBtn.addEventListener('click', () => {
+      confirmBtn.disabled = true;
+      confirmBtn.querySelector('span').textContent = 'Configuration en cours...';
+
+      try {
+        localStorage.setItem('margeo_seller_mode', selectedMode);
+      } catch (e) {}
+
+      setTimeout(() => {
+        window.location.href = 'app.html';
+      }, 500);
+    });
+
+    skipLink.addEventListener('click', () => {
+      try {
+        localStorage.setItem('margeo_seller_mode', 'particulier');
+      } catch (e) {}
+    });
+  </script>
+</body>
+</html>

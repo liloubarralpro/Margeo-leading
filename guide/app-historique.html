@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historique des bénéfices — Margeo App</title>
+  <meta name="description" content="Consultez l'évolution de vos bénéfices mensuels sur Vinted et exportez vos données comptables.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟣</text></svg>">
+</head>
+<body class="app-layout">
+
+  <div id="app-sidebar-container"></div>
+
+  <main class="app-main">
+    
+    <!-- Top Header Row -->
+    <div class="app-header-row">
+      <div class="app-page-heading">
+        <h1>Historique des bénéfices 📊</h1>
+        <p class="app-page-subtitle">Visualisez l'évolution de votre rentabilité mois par mois sur Vinted.</p>
+      </div>
+
+      <div class="app-header-actions">
+        <!-- Month / Year Selector -->
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <label for="hist-month-select" style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">Période :</label>
+          <select id="hist-month-select" class="input-field" style="width: auto; padding: 6px 12px; font-size: 0.85rem;">
+            <option value="2026-08">Août 2026</option>
+            <option value="2026-07">Juillet 2026</option>
+            <option value="2026-06">Juin 2026</option>
+            <option value="2026-05">Mai 2026</option>
+            <option value="2026-04">Avril 2026</option>
+            <option value="2026-03">Mars 2026</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== BAR CHART SECTION ========== -->
+    <div class="app-section-card" id="chart-section">
+      <div class="app-section-header">
+        <div class="app-section-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          <span>Bénéfice net par mois</span>
+        </div>
+        <span class="app-stat-badge-trend" style="background: rgba(16, 185, 129, 0.15); color: #10B981; font-size: 0.8rem;">
+          Tendance : +18 % sur 6 mois
+        </span>
+      </div>
+
+      <!-- Chart Content (Dynamic: visible for Starter+, blurred for Gratuit) -->
+      <div id="chart-content-wrapper">
+        <div class="history-bars-container" id="bars-container">
+          <!-- Bars rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Summary Row Below Chart -->
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 8px;" id="hist-summary-grid">
+        <div style="text-align: center;">
+          <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-subtle); text-transform: uppercase; letter-spacing: 0.04em;">Meilleur mois</div>
+          <div style="font-size: 1.4rem; font-weight: 800; color: var(--accent-success); font-family: var(--font-heading);" id="hist-best-month">+142 €</div>
+          <div style="font-size: 0.78rem; color: var(--text-muted);">Juillet 2026</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-subtle); text-transform: uppercase; letter-spacing: 0.04em;">Moyenne mensuelle</div>
+          <div style="font-size: 1.4rem; font-weight: 800; color: var(--primary-600); font-family: var(--font-heading);" id="hist-avg-month">+87 €</div>
+          <div style="font-size: 0.78rem; color: var(--text-muted);">Sur 6 mois</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-subtle); text-transform: uppercase; letter-spacing: 0.04em;">Total cumulé</div>
+          <div style="font-size: 1.4rem; font-weight: 800; color: var(--primary-700); font-family: var(--font-heading);" id="hist-total-cumul">+524 €</div>
+          <div style="font-size: 0.78rem; color: var(--text-muted);">Mars–Août 2026</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== MONTHLY DETAIL TABLE ========== -->
+    <div class="app-section-card">
+      <div class="app-section-header">
+        <div class="app-section-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          <span>Détail du mois sélectionné</span>
+        </div>
+        
+        <!-- Export Button (Empire Only) -->
+        <div style="position: relative;">
+          <button type="button" class="btn btn-secondary btn-sm" id="export-btn" title="Exporter les données du mois">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Export CSV / Excel</span>
+          </button>
+          <div class="export-tooltip" id="export-tooltip" style="display: none;">
+            🔒 L'export comptable est réservé à la formule Empire (24 €/mois).
+            <a href="app-parametres.html#abonnement" style="color: var(--primary-500); font-weight: 700;">Voir les formules →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-table-wrapper">
+        <table class="app-table">
+          <thead>
+            <tr>
+              <th>Mois</th>
+              <th>Articles vendus</th>
+              <th>Total dépensé</th>
+              <th>Total encaissé</th>
+              <th>Bénéfice net</th>
+              <th>Marge (%)</th>
+            </tr>
+          </thead>
+          <tbody id="hist-detail-tbody">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="app-store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      MargeoStore.renderAppSidebar('historique');
+
+      const user = MargeoStore.getUser();
+
+      // Mock monthly data (simulated over 6 months)
+      const monthlyData = [
+        { label: 'Mars', shortLabel: 'Mar', profit: 42, spent: 68, earned: 110, sold: 5, year: 2026 },
+        { label: 'Avril', shortLabel: 'Avr', profit: 67, spent: 95, earned: 162, sold: 7, year: 2026 },
+        { label: 'Mai', shortLabel: 'Mai', profit: 88, spent: 120, earned: 208, sold: 9, year: 2026 },
+        { label: 'Juin', shortLabel: 'Juin', profit: 104, spent: 145, earned: 249, sold: 11, year: 2026 },
+        { label: 'Juillet', shortLabel: 'Juil', profit: 142, spent: 185, earned: 327, sold: 14, year: 2026 },
+        { label: 'Août', shortLabel: 'Août', profit: 81, spent: 61, earned: 142, sold: 3, year: 2026 }
+      ];
+      // Use real data for the current month
+      const realSummary = MargeoStore.getMonthlySummary(user.sellerMode);
+      monthlyData[5].profit = Math.round(realSummary.netProfit);
+      monthlyData[5].spent = Math.round(realSummary.totalSpent);
+      monthlyData[5].earned = Math.round(realSummary.totalEarned);
+      monthlyData[5].sold = realSummary.soldCount;
+
+      const maxProfit = Math.max(...monthlyData.map(d => Math.abs(d.profit)));
+
+      // Render Bar Chart
+      const barsContainer = document.getElementById('bars-container');
+      barsContainer.innerHTML = monthlyData.map((d, i) => {
+        const barHeightPercent = maxProfit > 0 ? Math.max(8, (Math.abs(d.profit) / maxProfit) * 100) : 10;
+        const isCurrentMonth = (i === monthlyData.length - 1);
+        return `
+          <div class="history-bar-col">
+            <div class="history-bar-val" style="${isCurrentMonth ? 'color: var(--accent-success);' : ''}">${d.profit >= 0 ? '+' : ''}${d.profit} €</div>
+            <div class="history-bar-pillar" style="height: ${barHeightPercent}%; ${isCurrentMonth ? 'background: linear-gradient(180deg, #10B981 0%, #059669 100%); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);' : ''}"></div>
+            <div class="history-bar-label" style="${isCurrentMonth ? 'color: var(--primary-700); font-weight: 700;' : ''}">${d.shortLabel}</div>
+          </div>
+        `;
+      }).join('');
+
+      // Summary Stats
+      const totalCumul = monthlyData.reduce((sum, d) => sum + d.profit, 0);
+      const avgMonth = Math.round(totalCumul / monthlyData.length);
+      const bestMonth = monthlyData.reduce((best, d) => d.profit > best.profit ? d : best, monthlyData[0]);
+
+      document.getElementById('hist-best-month').textContent = `+${bestMonth.profit} €`;
+      document.getElementById('hist-avg-month').textContent = `+${avgMonth} €`;
+      document.getElementById('hist-total-cumul').textContent = `+${totalCumul} €`;
+
+      // Detail Table
+      const detailTbody = document.getElementById('hist-detail-tbody');
+      detailTbody.innerHTML = monthlyData.slice().reverse().map(d => {
+        const margin = d.earned > 0 ? ((d.profit / d.earned) * 100).toFixed(1) : '0.0';
+        return `
+          <tr>
+            <td><strong>${d.label} ${d.year}</strong></td>
+            <td>${d.sold} article${d.sold > 1 ? 's' : ''}</td>
+            <td>${MargeoStore.formatEuro(d.spent)}</td>
+            <td>${MargeoStore.formatEuro(d.earned)}</td>
+            <td><strong style="color: ${d.profit >= 0 ? 'var(--accent-success)' : 'var(--accent-danger)'};">${d.profit >= 0 ? '+' : ''}${MargeoStore.formatEuro(d.profit)}</strong></td>
+            <td>${margin} %</td>
+          </tr>
+        `;
+      }).join('');
+
+      // Free Plan: Blur Chart with Locked Overlay
+      if (user.plan === 'gratuit') {
+        const chartWrapper = document.getElementById('chart-content-wrapper');
+        const chartSection = document.getElementById('chart-section');
+        const summaryGrid = document.getElementById('hist-summary-grid');
+
+        chartWrapper.style.filter = 'blur(5px)';
+        chartWrapper.style.pointerEvents = 'none';
+        chartWrapper.style.userSelect = 'none';
+        summaryGrid.style.filter = 'blur(4px)';
+        summaryGrid.style.pointerEvents = 'none';
+
+        const overlay = document.createElement('div');
+        overlay.className = 'app-locked-overlay';
+        overlay.style.position = 'relative';
+        overlay.style.background = 'transparent';
+        overlay.style.marginTop = '-120px';
+        overlay.style.marginBottom = '20px';
+        overlay.innerHTML = `
+          <div class="locked-badge-pill">🔒 Starter, Pro Reseller & Empire</div>
+          <div class="locked-overlay-title">Historique complet des bénéfices</div>
+          <div class="locked-overlay-desc">Accédez à l'évolution de vos bénéfices sur les 12 derniers mois avec des graphiques détaillés.</div>
+          <a href="app-parametres.html#abonnement" class="btn btn-primary btn-sm btn-glow">Passer à Starter (5 €/mois)</a>
+        `;
+        chartSection.insertBefore(overlay, summaryGrid);
+      }
+
+      // Export Button: Lock for non-Empire
+      const exportBtn = document.getElementById('export-btn');
+      const exportTooltip = document.getElementById('export-tooltip');
+
+      if (user.plan !== 'empire') {
+        exportBtn.style.opacity = '0.6';
+        exportBtn.style.cursor = 'not-allowed';
+
+        exportBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          exportTooltip.style.display = exportTooltip.style.display === 'none' ? 'block' : 'none';
+        });
+
+        document.addEventListener('click', () => {
+          exportTooltip.style.display = 'none';
+        });
+      } else {
+        exportBtn.addEventListener('click', () => {
+          // Simulated CSV export
+          const csvRows = ['Mois,Articles vendus,Total dépensé,Total encaissé,Bénéfice net'];
+          monthlyData.forEach(d => {
+            csvRows.push(`${d.label} ${d.year},${d.sold},${d.spent},${d.earned},${d.profit}`);
+          });
+          const blob = new Blob([csvRows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = 'margeo_historique_export.csv';
+          link.click();
+        });
+      }
+    });
+  </script>
+
+  <style>
+    .export-tooltip {
+      position: absolute;
+      top: 110%;
+      right: 0;
+      background: #1E293B;
+      color: #E2E8F0;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.82rem;
+      line-height: 1.5;
+      min-width: 280px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      z-index: 50;
+    }
+
+    .export-tooltip::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      right: 20px;
+      border: 6px solid transparent;
+      border-bottom-color: #1E293B;
+    }
+  </style>
+</body>
+</html>

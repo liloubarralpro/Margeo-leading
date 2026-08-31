@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Margeo — Calculez votre marge réelle de vente sur Vinted</title>
+  <meta name="description" content="Margeo calcule instantanément votre bénéfice net et votre marge réelle sur Vinted. Adapté aux vendeurs particuliers (0% commission) et aux vendeurs Vinted Pro.">
+  <meta name="keywords" content="vinted, calcul marge vinted, commission vinted, frais de port vinted, reseller vinted, simulateur marge, lot vinted">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟣</text></svg>">
+</head>
+<body>
+
+  <!-- Ambient Glow Effects -->
+  <div class="bg-ambient-glow" aria-hidden="true">
+    <div class="glow-orb-1"></div>
+    <div class="glow-orb-2"></div>
+  </div>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo" aria-label="Accueil Margeo">
+        <div class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+        </div>
+        <span>Margeo<span class="text-gradient">.</span></span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#simulateur" class="nav-link">Simulateur</a></li>
+          <li><a href="#comment-ca-marche" class="nav-link">Comment ça marche</a></li>
+          <li><a href="#suivi-lots" class="nav-link">Suivi & Lots</a></li>
+          <li><a href="#tarifs" class="nav-link">Tarifs</a></li>
+          <li><a href="blog.html" class="nav-link">Blog & Guides</a></li>
+          <li><a href="faq.html" class="nav-link">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="connexion.html" class="btn btn-secondary btn-sm">Connexion</a>
+        <a href="inscription.html" class="btn btn-primary btn-sm">Essai Gratuit</a>
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu mobile">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE NAVIGATION DRAWER -->
+  <div class="mobile-nav" id="mobile-nav">
+    <ul class="nav-links">
+      <li><a href="#simulateur" class="nav-link">Simulateur en direct</a></li>
+      <li><a href="#comment-ca-marche" class="nav-link">Comment ça marche</a></li>
+      <li><a href="#suivi-lots" class="nav-link">Suivi & Lots de commande</a></li>
+      <li><a href="#tarifs" class="nav-link">Tarifs (4 formules)</a></li>
+      <li><a href="blog.html" class="nav-link">Blog & Guides</a></li>
+      <li><a href="faq.html" class="nav-link">Foire aux questions</a></li>
+    </ul>
+    <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
+      <a href="connexion.html" class="btn btn-secondary" style="width: 100%;">Connexion</a>
+      <a href="inscription.html" class="btn btn-primary" style="width: 100%;">Commencer gratuitement</a>
+    </div>
+  </div>
+
+  <!-- HERO SECTION WITH REVAMPED VINTED SIMULATOR -->
+  <section class="hero" id="simulateur">
+    <div class="container hero-grid">
+      
+      <!-- Left: Value Proposition -->
+      <div class="hero-content">
+        <div class="section-badge">
+          <span class="pulse-dot"></span>
+          <span>Calculateur de Marge Vinted</span>
+        </div>
+
+        <h1 class="hero-title">
+          Ne vendez plus à perte. <br>
+          Calculez votre <span class="text-gradient">marge réelle</span> sur Vinted.
+        </h1>
+
+        <p class="hero-description">
+          Fini les calculs flous. Vinted ne prend aucune commission aux particuliers : sachez exactement ce qu'il vous reste dans la poche après achat et frais d'envoi.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#tarifs" class="btn btn-primary btn-lg btn-glow trigger-modal" data-plan="Offre Pro Reseller (Essai)">
+            <span>Tester gratuitement (sans carte)</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+          <a href="#suivi-lots" class="btn btn-secondary btn-lg">
+            <span>Découvrir les fonctionnalités</span>
+          </a>
+        </div>
+
+        <!-- Social Proof Stats -->
+        <div class="hero-proof">
+          <div class="avatar-group">
+            <img class="avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="Utilisatrice Margeo">
+            <img class="avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" alt="Utilisateur Margeo">
+            <img class="avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" alt="Utilisatrice Vinted">
+            <img class="avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80" alt="Utilisateur Margeo">
+          </div>
+          <div class="proof-text">
+            <div class="stars">★★★★★</div>
+            <div><strong>+4 800 vendeurs & boutiques</strong> calculent avec Margeo</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Simplified 2-Field Simulator Card with Accessible Particulier/Pro Toggle -->
+      <div class="calculator-card">
+        
+        <!-- Toggle Mode Vendeur Particulier vs Pro (Accessible) -->
+        <div class="seller-mode-switcher" role="group" aria-label="Choix du profil de vendeur">
+          <button type="button" class="mode-btn active" id="mode-particulier-btn" role="button" aria-pressed="true" tabindex="0">
+            <span>👤 Vendeur particulier</span>
+          </button>
+          <button type="button" class="mode-btn" id="mode-pro-btn" role="button" aria-pressed="false" tabindex="0">
+            <span>💼 Vendeur Vinted Pro</span>
+            <span class="mode-info-tooltip" title="Pour les comptes ayant activé le badge Vinted Pro (auto-entrepreneur / entreprise)">?</span>
+          </button>
+        </div>
+
+        <!-- Dynamic Notice Banner -->
+        <div class="mode-notice-banner" id="mode-notice-banner">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          <div><strong>Mode Particulier :</strong> Vinted ne prend <u>aucune commission</u> au vendeur particulier (vous recevez 100 % du prix affiché). La protection acheteur est payée par l'acheteur en plus.</div>
+        </div>
+
+        <form class="calc-form" onsubmit="return false;">
+          
+          <!-- 2 Simple Starting Fields with French placeholders -->
+          <div class="calc-simple-grid">
+            <!-- 1. Prix payé à l'achat -->
+            <div class="input-group">
+              <div class="input-label-row">
+                <label for="buy-price">Prix payé à l'achat</label>
+              </div>
+              <div class="input-wrapper">
+                <input type="number" id="buy-price" class="input-field" value="8" min="0" step="0.5" placeholder="0,00">
+                <span class="currency-unit">€</span>
+              </div>
+              <span class="input-help">Coût de sourcing (friperie, brocante...)</span>
+            </div>
+
+            <!-- 2. Prix vendu / affiché -->
+            <div class="input-group">
+              <div class="input-label-row">
+                <label for="sell-price">Prix vendu sur Vinted</label>
+              </div>
+              <div class="input-wrapper">
+                <input type="number" id="sell-price" class="input-field" value="35" min="0" step="0.5" placeholder="0,00">
+                <span class="currency-unit">€</span>
+              </div>
+              <span class="input-help">Prix affiché dans l'annonce</span>
+            </div>
+          </div>
+
+          <!-- Pro-only configuration fields (Shown only when Pro mode is active) -->
+          <div class="pro-fields-container" id="pro-fields-container">
+            <div class="input-group">
+              <div class="input-label-row">
+                <label for="pro-commission-rate">Commission Vinted Pro (%)</label>
+              </div>
+              <div class="input-wrapper">
+                <input type="number" id="pro-commission-rate" class="input-field" value="5" min="0" max="25" step="0.5">
+                <span class="currency-unit">%</span>
+              </div>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; justify-content: center; gap: 4px;">
+              <label style="display: flex; align-items: center; gap: 8px; font-size: 0.82rem; cursor: pointer; color: var(--text-main); font-weight: 600;">
+                <input type="checkbox" id="pro-vat-toggle" style="accent-color: var(--primary-600); width: 16px; height: 16px;">
+                <span>Appliquer la TVA sur les frais (régime assujetti)</span>
+              </label>
+              <span style="font-size: 0.72rem; color: #78350F;">Selon votre régime fiscal</span>
+            </div>
+          </div>
+
+          <!-- Optional Extra Costs (Emballage, Port offert) -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+            <div class="input-group">
+              <label for="package-cost" style="font-size: 0.78rem; font-weight: 600; color: var(--text-muted);">Frais d'emballage (optionnel)</label>
+              <div class="input-wrapper">
+                <input type="number" id="package-cost" class="input-field" value="0" min="0" step="0.5" placeholder="0,00" style="font-size: 1rem; padding: 8px 32px 8px 10px;">
+                <span class="currency-unit" style="font-size: 0.85rem;">€</span>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="shipping-offered" style="font-size: 0.78rem; font-weight: 600; color: var(--text-muted);">Port offert par vous (si applicable)</label>
+              <div class="input-wrapper">
+                <input type="number" id="shipping-offered" class="input-field" value="0" min="0" step="0.5" placeholder="0,00" style="font-size: 1rem; padding: 8px 32px 8px 10px;">
+                <span class="currency-unit" style="font-size: 0.85rem;">€</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Result Display (Combien tu gagnes) -->
+          <div class="calc-results-simple">
+            <div class="result-main-grid">
+              <div>
+                <div class="result-stat-label">Bénéfice Net Réel</div>
+                <div class="result-stat-value profit-positive" id="net-profit-display">+27,00 €</div>
+              </div>
+              <div style="text-align: right;">
+                <div class="result-stat-label">Marge Nette</div>
+                <div class="result-stat-value profit-positive" id="margin-percent-display">+77,1 %</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Crucial requirement: Separate Buyer Info Box (NEVER deducted from seller!) -->
+          <div class="buyer-info-banner">
+            <div class="buyer-info-left">
+              <span class="buyer-info-badge">Côté Acheteur</span>
+              <span>Ce que paie l'acheteur en plus (protection + port) :</span>
+            </div>
+            <div class="buyer-total-val" id="buyer-extra-fee-display">5,74 €</div>
+          </div>
+
+          <!-- Deployable Line-by-Line Breakdown Button -->
+          <button type="button" class="toggle-breakdown-btn" id="toggle-breakdown-btn">
+            <span>Voir le récapitulatif détaillé ligne par ligne ▼</span>
+          </button>
+
+          <!-- Collapsible Breakdown Content -->
+          <div class="detailed-breakdown-box" id="detailed-breakdown-box">
+            <div class="breakdown-row">
+              <span>Prix de vente Vinted :</span>
+              <span id="bd-sell-price">35,00 €</span>
+            </div>
+            <div class="breakdown-row">
+              <span>Coût d'achat de la pièce :</span>
+              <span class="val-minus" id="bd-buy-price">- 8,00 €</span>
+            </div>
+            <div class="breakdown-row" id="bd-commission-row" style="display: none;">
+              <span>Commission Vinted Pro :</span>
+              <span class="val-minus" id="bd-commission-val">- 1,75 €</span>
+            </div>
+            <div class="breakdown-row" id="bd-shipping-offered-row" style="display: none;">
+              <span>Frais de port offerts :</span>
+              <span class="val-minus" id="bd-shipping-offered-val">- 0,00 €</span>
+            </div>
+            <div class="breakdown-row" id="bd-package-row" style="display: none;">
+              <span>Frais d'emballage :</span>
+              <span class="val-minus" id="bd-package-val">- 0,00 €</span>
+            </div>
+            <div class="breakdown-row">
+              <span>Bénéfice net en poche :</span>
+              <span class="val-plus" id="bd-net-profit">+27,00 €</span>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TRUST & STATS STRIP (Updated "Boutiques & Vendeurs Pro") -->
+  <section class="trust-section">
+    <div class="container">
+      <div class="trust-title">Adapté à tous les vendeurs Vinted en France & Europe</div>
+      <div class="trust-logos">
+        <div class="trust-item">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          <span>Vendeurs Dressing Particulier</span>
+        </div>
+        <div class="trust-item">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <span>Resellers Sneaker & Vintage</span>
+        </div>
+        <div class="trust-item">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+          <span>Boutiques & Vendeurs Pro</span>
+        </div>
+      </div>
+
+      <div class="trust-stats">
+        <div class="stat-box">
+          <div class="stat-number">+2.4M €</div>
+          <div class="stat-label">De marges calculées avec précision</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">+34 %</div>
+          <div class="stat-label">De rentabilité moyenne constatée chez nos membres</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">100 %</div>
+          <div class="stat-label">Aligné sur les règles Vinted en vigueur</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION COMMENT ÇA MARCHE EN 3 ÉTAPES -->
+  <section class="how-it-works" id="comment-ca-marche">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Simplicité absolue</div>
+        <h2 class="section-title">Comment fonctionne Margeo ?</h2>
+        <p class="section-subtitle">Trois étapes simples pour piloter vos ventes, sécuriser vos bénéfices et ne plus jamais sous-estimer vos coûts.</p>
+      </div>
+
+      <div class="steps-grid">
+        <!-- Step 1 -->
+        <div class="step-card">
+          <div class="step-number-badge">1</div>
+          <div class="step-icon-wrapper">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+              <line x1="7" y1="7" x2="7.01" y2="7"></line>
+            </svg>
+          </div>
+          <h3 class="step-title">1. Saisis tes prix</h3>
+          <p class="step-desc">
+            Indique ce que tu as payé à l'achat (en friperie, brocante, outlet ou déstockage) et le prix auquel tu vends la pièce sur Vinted. Pas de catégories compliquées : 2 chiffres suffisent.
+          </p>
+          <div class="step-tag">🏷️ 2 secondes chrono</div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card">
+          <div class="step-number-badge">2</div>
+          <div class="step-icon-wrapper">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="2" width="16" height="20" rx="2"></rect>
+              <line x1="8" y1="6" x2="16" y2="6"></line>
+              <line x1="16" y1="14" x2="16" y2="18"></line>
+              <path d="M16 10h.01"></path>
+              <path d="M12 10h.01"></path>
+              <path d="M8 10h.01"></path>
+              <path d="M12 14h.01"></path>
+              <path d="M8 14h.01"></path>
+              <path d="M12 18h.01"></path>
+              <path d="M8 18h.01"></path>
+            </svg>
+          </div>
+          <h3 class="step-title">2. Calcul exact selon ton profil</h3>
+          <p class="step-desc">
+            En mode Particulier, 0 % de commission vendeur est déduite (la protection est payée par l'acheteur). En mode Vinted Pro, la commission de 5 % et vos options fiscales sont intégrées automatiquement.
+          </p>
+          <div class="step-tag">⚡ 0 calcul mental</div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-card">
+          <div class="step-number-badge">3</div>
+          <div class="step-icon-wrapper">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+              <polyline points="17 6 23 6 23 12"></polyline>
+            </svg>
+          </div>
+          <h3 class="step-title">3. Pilote ta rentabilité réelle</h3>
+          <p class="step-desc">
+            Obtiens ton bénéfice net en euros et en pourcentage en direct. Ajoute tes pièces une par une ou par lot d'achat pour suivre si ton mois est en bénéfice ou en perte.
+          </p>
+          <div class="step-tag">📈 Visibilité totale</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION INTERACTIVE : SAISIE ARTICLE PAR ARTICLE & LOT DE COMMANDE -->
+  <section class="tracker-section" id="suivi-lots">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Gestion & Pilotage</div>
+        <h2 class="section-title">Saisie article par article & Lots de commande</h2>
+        <p class="section-subtitle">
+          Alimentez votre tableau mensuel pièce par pièce et suivez le seuil de rentabilité de vos commandes groupées.
+        </p>
+      </div>
+
+      <div class="tracker-demo-container">
+        
+        <!-- Left: Article-by-Article Tracker & Monthly Recap with Empty State -->
+        <div class="article-tracker-box">
+          <div class="tracker-header-row">
+            <div class="tracker-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              <span>Suivi des articles du mois</span>
+            </div>
+            <button type="button" class="tracker-view-toggle" id="toggle-empty-view-btn">
+              Voir à vide
+            </button>
+          </div>
+
+          <!-- Active Articles List Container -->
+          <div class="article-list" id="article-list-container">
+            <!-- Item 1 -->
+            <div class="article-row-item">
+              <div class="article-meta">
+                <span class="article-name">🧥 Veste en jean Levi's vintage</span>
+                <span class="article-source-tag">Source : Brocante (achat : 8,00 €)</span>
+              </div>
+              <div class="article-finances">
+                <span style="font-weight: 700; color: var(--text-main);">Vendu 35,00 €</span>
+                <span class="status-pill sold">Vendu (+27,00 €)</span>
+              </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="article-row-item">
+              <div class="article-meta">
+                <span class="article-name">👟 Sneakers New Balance 550</span>
+                <span class="article-source-tag">Source : Outlet (achat : 35,00 €)</span>
+              </div>
+              <div class="article-finances">
+                <span style="font-weight: 700; color: var(--text-main);">Vendu 85,00 €</span>
+                <span class="status-pill sold">Vendu (+50,00 €)</span>
+              </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="article-row-item">
+              <div class="article-meta">
+                <span class="article-name">🧥 Blazer en laine pied-de-poule</span>
+                <span class="article-source-tag">Source : Friperie (achat : 12,00 €)</span>
+              </div>
+              <div class="article-finances">
+                <span style="font-weight: 600; color: var(--text-muted);">En vente (40,00 €)</span>
+                <span class="status-pill pending">Non vendu (-12,00 €)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Welcoming Empty State -->
+          <div class="article-empty-state" id="article-empty-state">
+            <div class="empty-icon">📦</div>
+            <div class="empty-title">Aucun article ce mois-ci</div>
+            <div class="empty-desc">Ajoute ta première vente pour voir ton bilan en direct et suivre tes bénéfices.</div>
+          </div>
+
+          <!-- Dynamic Monthly Recap Strip -->
+          <div class="monthly-recap-banner">
+            <div class="recap-stats-group">
+              <div class="recap-stat-item">
+                <span class="label">Total dépensé</span>
+                <span class="val" id="recap-total-spent">55,00 €</span>
+              </div>
+              <div class="recap-stat-item">
+                <span class="label">Total encaissé</span>
+                <span class="val" id="recap-total-earned">120,00 €</span>
+              </div>
+              <div class="recap-stat-item">
+                <span class="label">Bénéfice net</span>
+                <span class="val" id="recap-net-profit" style="color: #34D399;">+65,00 €</span>
+              </div>
+            </div>
+            <div class="recap-verdict">
+              <div class="recap-verdict-title">Bilan du mois</div>
+              <div id="recap-verdict-message" style="font-size: 0.88rem;">Ce mois-ci : <strong>Bénéfice de +65,00 €</strong> (1 en stock)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: "Lot de commande" Feature Showcase with Real Interactive Simulator -->
+        <div class="lot-tracker-box">
+          <div>
+            <div class="lot-badge-pro">⭐ Inclus dans Pro Reseller & Empire</div>
+            <h3 class="lot-title">Fonctionnalité « Lot de commande »</h3>
+            <p class="lot-desc">
+              Tu achètes des cartons ou des lots groupés ? Crée ton lot et visualise en direct quand tu franchis ton <strong>seuil de rentabilité</strong>.
+            </p>
+
+            <!-- Editable Lot Name (Neutral Placeholder) -->
+            <div class="lot-name-input-wrapper">
+              <input type="text" id="lot-name-input" class="lot-name-field" value="Commande d'achat groupé #1" placeholder="Nom du lot (ex: Carton déstockage, Lot brocante...)">
+            </div>
+
+            <!-- Break-even Card -->
+            <div class="break-even-card" id="lot-break-even-card">
+              <div class="progress-label-row">
+                <div id="lot-progress-title" class="lot-summary-title">
+                  <strong>Commande d'achat groupé #1</strong> — 235,00 € de coût total, <strong>178,00 €</strong> récupérés (75 %)
+                </div>
+              </div>
+              
+              <div class="progress-track">
+                <div class="progress-bar-fill" id="lot-progress-bar" style="width: 75%;"></div>
+              </div>
+
+              <div class="break-even-status" id="lot-status-text">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                <span>Encore <strong>57,00 €</strong> pour atteindre le seuil de rentabilité</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Real Interactive Next Sale Simulator Input inside Lot Card (Option B) -->
+          <div class="lot-interactive-sim">
+            <label for="lot-sim-price-input">⚡ Simuler le prix de ta prochaine vente sur ce lot :</label>
+            <div class="lot-sim-input-wrapper">
+              <input type="number" id="lot-sim-price-input" class="lot-sim-input" value="60" min="0" step="5" placeholder="0">
+              <span class="lot-sim-unit">€</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES / POURQUOI MARGEO (Softened absolute claims) -->
+  <section class="features-section" id="fonctionnalites">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Boîte à outils complète</div>
+        <h2 class="section-title">Tout ce dont tu as besoin pour sécuriser tes bénéfices</h2>
+        <p class="section-subtitle">Conçu spécifiquement pour les réalités du sourcing et de la revente sur Vinted.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M16 8l-8 8"></path>
+              <path d="M8.5 8.5h.01"></path>
+              <path d="M15.5 15.5h.01"></path>
+            </svg>
+          </div>
+          <div class="feature-info">
+            <h3>Calcul Particulier & Vinted Pro</h3>
+            <p>0 % de commission déduite en mode particulier, prise en compte des 5 % et de la TVA en mode Pro. Des calculs précis et adaptés à ton statut.</p>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <div class="feature-info">
+            <h3>Optimiseur de prix de vente intelligent</h3>
+            <p>Renseigne ton coût d'achat et le bénéfice net que tu souhaites empocher : Margeo te calcule automatiquement le prix à afficher dans ton annonce.</p>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <div class="feature-info">
+            <h3>Lots d'achats groupés & Seuil de rentabilité</h3>
+            <p>Suis l'amortissement de tes commandes groupées ou de cartons de grossiste. Dès que tes ventes couvrent la dépense initiale, passe visuellement dans le vert.</p>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </div>
+          <div class="feature-info">
+            <h3>Import / Export CSV & Historique complet</h3>
+            <p>Migre facilement ton ancien tableau Excel en quelques clics. Exporte ton récapitulatif comptable en fin de mois pour préparer tes déclarations plus facilement.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING SECTION (4 FORMULES EXACTES) -->
+  <section class="pricing-section" id="tarifs">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Tarification transparente</div>
+        <h2 class="section-title">4 formules pensées pour ton niveau d'activité</h2>
+        <p class="section-subtitle">Choisis l'offre adaptée à ton volume de vente. Sans engagement.</p>
+      </div>
+
+      <!-- Monthly / Annual Toggle -->
+      <div class="billing-toggle-container">
+        <span class="toggle-label monthly active">Mensuel</span>
+        <label class="switch" aria-label="Basculer entre facturation mensuelle et annuelle">
+          <input type="checkbox" id="billing-toggle">
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label annual">Annuel</span>
+        <span class="discount-badge">2 mois offerts 🎁</span>
+      </div>
+
+      <div class="pricing-grid-4">
+        
+        <!-- Formule 1 : GRATUIT -->
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <h3 class="plan-name">Gratuit</h3>
+            <p class="plan-desc">Pour vider son dressing occasionnellement et tester l'outil.</p>
+          </div>
+
+          <div class="plan-price-box">
+            <span class="price-currency">€</span>
+            <span class="price-amount">0</span>
+            <span class="price-period">/ à vie sans carte</span>
+          </div>
+
+          <ul class="features-list">
+            <li>
+              <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span><strong>5 calculs</strong> de marge par mois</span>
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Récap du mois en cours uniquement</span>
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Simulateur Particulier & Pro</span>
+            </li>
+            <li class="disabled">
+              <svg class="cross-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+              <span>Pas d'historique des mois passés</span>
+            </li>
+            <li class="disabled">
+              <svg class="cross-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+              <span>Pas d'import CSV ni de lot</span>
+            </li>
+          </ul>
+
+          <button class="btn btn-secondary pricing-cta trigger-modal" data-plan="Offre Gratuit (0€)">
+            Commencer gratuitement
+          </button>
+        </div>
+
+        <!-- Formule 2 : STARTER -->
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <h3 class="plan-name">Starter</h3>
+            <p class="plan-desc">Pour les vendeurs réguliers qui veulent archiver toutes leurs ventes.</p>
+          </div>
+
+          <div class="plan-price-box">
+            <span class="price-currency">€</span>
+            <span class="price-amount" id="price-starter">5</span>
+            <span class="price-period" id="period-starter">€ / mois sans engagement</span>
+          </div>
+
+          <ul class="features-list">
+            <li>
+              <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span><strong>Calculs illimités</strong></span>
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Récap hebdo & mensuel avec <strong>historique complet</strong></span>
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span><strong>Import CSV</strong> depuis Excel (migration facile)</span>
+            </li>
+            <li class="disabled">
+              <svg class="cross-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+              <span>Pas de lot ni d'optimiseur de prix</span>
+            </li>
+            <li class="disabled">
+              <svg class="cross-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+              <span>Pas d'alerte email</span>
+            </li>
+          </ul>
+
+          <button class="btn btn-secondary pricing-cta trigger-modal" data-plan="Offre Starter (5€/m)">
+            Choisir Starter
+          </button>
+        </div>
+
+        <!-- Formule 3 : PRO RESELLER (Featured) -->
+        <div class="pricing-card featured">
+          <div class="featured-ribbon">⭐ LE PLUS POPULAIRE</div>
+          <div class="pricing-header">
+            <h3 class="plan-name">Pro Reseller</h3>
+            <p class="plan-desc">Pour les chineurs actifs, resellers et passionnés de sourcing.</p>
+          </div>
+
+          <div class="plan-price-box">
+            <span class="price-currency">€</span>
+            <span class="price-amount" id="price-pro">9</span>
+            <span class="price-period" id="period-pro">€ / mois sans engagement</span>
+          </div>
+
+          <ul class="features-list">
+            <li>
+              <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span><strong>Tout ce qui est dans Starter</strong></span>
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span><strong>Fonctionnalité Lot de commande</strong> & seuil de rentabilité</span>
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span><strong>Optimiseur de prix de vente</strong> intelligent</span>
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span><strong>Alerte email automatique</strong> hebdo/mensuelle</span>
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Support prioritaire 7j/7</span>
+            </li>
+          </ul>
+
+          <button class="btn btn-primary pricing-cta btn-glow trigger-modal" data-plan="Offre Pro Reseller (9€/m)">
+            Essayer Pro Reseller
+          </button>
+        </div>
+
+        <!-- Formule 4 : EMPIRE (Updated description) -->
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <h3 class="plan-name">Empire</h3>
+            <p class="plan-desc">Pour les boutiques professionnelles et vendeurs à gros volume.</p>
+          </div>
+
+          <div class="plan-price-box">
+            <span class="price-currency">€</span>
+            <span class="price-amount" id="price-empire">24</span>
+            <span class="price-period" id="period-empire">€ / mois sans engagement</span>
+          </div>
+
+          <ul class="features-list">
+            <li>
+              <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span><strong>Tout ce qui est dans Pro Reseller</strong></span>
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span><strong>Mode Vendeur Pro</strong> avec cotisations URSSAF estimées (12,3 %)</span>
+              <div class="urssaf-notice-tag">💡 Estimation indicative, ne remplace pas un logiciel comptable officiel (Indy, Shine...).</div>
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span><strong>Export comptable</strong> CSV & Excel 1-clic</span>
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span><strong>Multi-utilisateurs</strong> (jusqu'à 3) & multi-comptes</span>
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span><strong>Gestion des stocks & SKU</strong></span>
+            </li>
+          </ul>
+
+          <button class="btn btn-secondary pricing-cta trigger-modal" data-plan="Offre Empire (24€/m)">
+            Démarrer avec Empire
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS SECTION (3 AVIS CONSERVÉS TELS QUELS) -->
+  <section class="testimonials-section" id="temoignages">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Retours d'expérience</div>
+        <h2 class="section-title">Adopté par plus de 4 800 vendeurs</h2>
+        <p class="section-subtitle">Découvrez comment nos utilisateurs ont transformé leur activité sur Vinted en véritables commerces rentables.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        
+        <!-- Avis 1 -->
+        <div class="testimonial-card">
+          <div>
+            <div class="testimonial-header">
+              <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80" alt="Camille R.">
+              <div>
+                <h4 class="author-name">Camille R.</h4>
+                <p class="author-role">Chineuse & Reseller Vintage • Paris</p>
+              </div>
+            </div>
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-quote">
+              « Avant Margeo, je pensais faire environ 12 € de bénéfice par pièce vendue... Mais en comptant l'emballage, le dressing en vitrine et les négociations, je gagnais à peine 3 € ! Margeo m'a permis de fixer les vrais prix et de doubler mes revenus nets en 2 mois. »
+            </p>
+          </div>
+          <div class="verified-buyer-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <span>Vendeuse Pro vérifiée (+450 évaluations)</span>
+          </div>
+        </div>
+
+        <!-- Avis 2 -->
+        <div class="testimonial-card">
+          <div>
+            <div class="testimonial-header">
+              <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80" alt="Thomas B.">
+              <div>
+                <h4 class="author-name">Thomas B.</h4>
+                <p class="author-role">Reseller Streetwear & Sneakers • Lyon</p>
+              </div>
+            </div>
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-quote">
+              « L'outil indispensable quand tu es en session de sourcing dans les outlets ou sur les brocantes. Je rentre le prix d'achat sur mon smartphone et je sais direct si l'article vaut le coup d'être acheté pour Vinted. Gain de temps et d'argent énorme ! »
+            </p>
+          </div>
+          <div class="verified-buyer-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <span>Membre Margeo Pro depuis 8 mois</span>
+          </div>
+        </div>
+
+        <!-- Avis 3 -->
+        <div class="testimonial-card">
+          <div>
+            <div class="testimonial-header">
+              <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=120&auto=format&fit=crop&q=80" alt="Sarah M.">
+              <div>
+                <h4 class="author-name">Sarah M.</h4>
+                <p class="author-role">Gérante Friperie en ligne • Bordeaux</p>
+              </div>
+            </div>
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-quote">
+              « La prise en compte des cotisations URSSAF et l'export comptable en fin de mois sont juste parfaits pour mon statut de micro-entreprise. C'est l'application la plus claire et la plus fluide pour piloter sa rentabilité Vinted. »
+            </p>
+          </div>
+          <div class="verified-buyer-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <span>Boutique vérifiée (+1 200 ventes)</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Questions fréquentes</div>
+        <h2 class="section-title">Tout ce que vous devez savoir</h2>
+        <p class="section-subtitle">Des réponses claires et sans jargon.</p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item active">
+          <button class="faq-question">
+            <span>Comment fonctionne le calcul pour un vendeur particulier ?</span>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-answer">
+            Sur Vinted, <strong>aucune commission n'est prélevée sur le vendeur particulier</strong> : vous recevez 100 % du prix affiché dans votre annonce. La « protection acheteur » (0,70 € + 5 %) et les frais de livraison sont réglés en supplément par l'acheteur. Margeo calcule donc votre marge nette en déduisant uniquement votre prix d'achat, vos éventuels frais d'emballage et les frais de port si vous décidez de les offrir.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Quelle est la différence avec le mode Vinted Pro ?</span>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-answer">
+            Le mode Vinted Pro s'adresse aux vendeurs ayant activé le badge officiel Vinted Pro (nécessite un statut d'entreprise ou d'auto-entrepreneur). Dans ce cas, Vinted prélève une commission vendeur de 5 % sur le prix de l'article. Margeo intègre cette commission ainsi que la TVA éventuelle selon votre régime fiscal.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Comment fonctionne la fonctionnalité « Lot de commande » ?</span>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-answer">
+            Disponible dans les formules Pro Reseller et Empire, cette option vous permet de regrouper vos achats en gros ou commandes groupées (ex : lot à 235 €). Au fil des ventes des pièces individuelles, la barre de progression vous indique exactement quand vous avez remboursé votre mise initiale et bascule automatiquement en mode « Tu es dans le vert » dès que vous générez du bénéfice pur.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>L'estimation des cotisations URSSAF remplace-t-elle un logiciel comptable ?</span>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-answer">
+            Non. L'estimation des cotisations URSSAF (12,3 % en micro-entreprise d'achat-revente) est donnée <strong>à titre indicatif</strong> pour vous aider à visualiser votre trésorerie réelle. Margeo n'est pas un logiciel de déclaration officielle et ne remplace pas des solutions d'experts comme Indy, Shine ou Dougs.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Margeo est-il affilié officiellement à Vinted ?</span>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-answer">
+            Non. Margeo est un outil indépendant développé par et pour la communauté des vendeurs Vinted. Margeo n'est pas affilié, sponsorisé ni approuvé par Vinted UAB.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER SECTION -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <h2 class="cta-title">Prêt à maîtriser tes marges sur Vinted ?</h2>
+        <p class="cta-desc">Rejoins plus de 4 800 vendeurs malins qui savent exactement combien ils gagnent sur chaque pièce.</p>
+        <div class="cta-actions">
+          <a href="#tarifs" class="btn btn-primary btn-lg btn-glow trigger-modal" data-plan="Offre Pro Reseller (Essai)">
+            <span>Commencer gratuitement (sans carte)</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          <a href="#simulateur" class="btn btn-secondary btn-lg">
+            <span>Tester le simulateur</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        
+        <!-- Brand & Description -->
+        <div class="footer-brand">
+          <a href="#" class="logo">
+            <div class="logo-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="12" y1="1" x2="12" y2="23"></line>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
+            </div>
+            <span>Margeo<span style="color: var(--primary-400);">.</span></span>
+          </a>
+          <p class="footer-tagline">
+            Le copilote de marge et de rentabilité pour les vendeurs Vinted, boutiques en ligne et resellers.
+          </p>
+          <div class="footer-socials">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram Margeo">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TikTok Margeo">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.49 6.27 6.27 0 0 0 1.87-4.49V8.62a8.28 8.28 0 0 0 4.9 1.58V6.75a4.88 4.88 0 0 1-1-.06z"/></svg>
+            </a>
+            <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Twitter Margeo">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="https://discord.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Discord Communauté">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Links 1: Produit -->
+        <div>
+          <div class="footer-heading">Produit & Guides</div>
+          <ul class="footer-links">
+            <li><a href="#simulateur">Simulateur de marge</a></li>
+            <li><a href="#comment-ca-marche">Comment ça marche</a></li>
+            <li><a href="#tarifs">Tarifs & Offres</a></li>
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="faq.html">FAQ complète</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-heading">Pages Légales</div>
+          <ul class="footer-links">
+            <li><a href="mentions-legales.html">Mentions Légales</a></li>
+            <li><a href="cgu.html">Conditions d'Utilisation (CGU)</a></li>
+            <li><a href="cgv.html">Conditions de Vente (CGV)</a></li>
+            <li><a href="politique-de-confidentialite.html">Politique de Confidentialité</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Box -->
+        <div>
+          <div class="footer-heading">Contact & Support</div>
+          <div class="contact-card">
+            <div class="contact-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <span>contact@margeo.fr</span>
+            </div>
+            <div class="contact-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+              <span>Réponse sous 24h ouvrées</span>
+            </div>
+            <div class="contact-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span>Made with 💜 in France</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Disclaimer Section -->
+      <div class="footer-disclaimer">
+        Margeo est un service indépendant et n'est pas affilié à Vinted UAB. Vinted est une marque déposée de Vinted, UAB. Les calculs et estimations fiscales (URSSAF) sont fournis à titre indicatif et ne se substituent pas aux avis de professionnels de la comptabilité.
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 Margeo SAS. Tous droits réservés.</div>
+        <div class="footer-legal-links">
+          <a href="mentions-legales.html">Mentions Légales</a>
+          <a href="politique-de-confidentialite.html">Politique de Confidentialité</a>
+          <a href="cgu.html">CGU</a>
+          <a href="cgv.html">CGV</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SIGNUP / FREE TRIAL MODAL -->
+  <div class="modal-overlay" id="signup-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-container">
+      <button class="modal-close" id="modal-close-btn" aria-label="Fermer la modal">&times;</button>
+      
+      <div style="text-align: center; margin-bottom: 20px;">
+        <div class="logo-icon" style="margin: 0 auto 14px auto;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        </div>
+        <h3 style="font-size: 1.5rem; margin-bottom: 6px;">Rejoindre Margeo</h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted);">
+          Offre sélectionnée : <strong id="modal-plan-title" style="color: var(--primary-600);">Gratuit (Sans carte)</strong>
+        </p>
+      </div>
+
+      <form class="modal-form" id="modal-form">
+        <input type="hidden" id="modal-selected-plan" value="Gratuit">
+
+        <div class="input-group">
+          <label for="modal-name" style="font-size: 0.85rem; font-weight: 600;">Prénom ou Nom de Dressing</label>
+          <input type="text" id="modal-name" class="input-field" placeholder="Ex: Camille (DressingVintage75)" required style="font-size: 0.95rem; font-weight: 500;">
+        </div>
+
+        <div class="input-group">
+          <label for="modal-email" style="font-size: 0.85rem; font-weight: 600;">Adresse Email</label>
+          <input type="email" id="modal-email" class="input-field" placeholder="Ex: camille@gmail.com" required style="font-size: 0.95rem; font-weight: 500;">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-glow" style="width: 100%; margin-top: 8px;">
+          Activer mon accès immédiat ✨
+        </button>
+
+        <p style="font-size: 0.75rem; color: var(--text-subtle); text-align: center; margin-top: 8px;">
+          🔒 Aucune carte bancaire requise. Annulation en 1 clic.
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- LIVE SOCIAL PROOF TOAST -->
+  <div class="live-toast" id="live-toast" role="status" aria-live="polite">
+    <div class="toast-avatar">🛍️</div>
+    <div class="toast-content" id="toast-text">
+      <strong>Camille R.</strong> a validé sa marge sur un <em>Blouson Cuir Vintage</em> : <span class="toast-gain">+27,00 € net</span>
+    </div>
+    <button class="toast-close" id="toast-close" aria-label="Fermer la notification">&times;</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

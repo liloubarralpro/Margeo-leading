@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion — Margeo</title>
+  <meta name="description" content="Connectez-vous à votre espace Margeo pour retrouver vos bilans de ventes et calculateurs Vinted.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟣</text></svg>">
+</head>
+<body class="auth-page">
+
+  <!-- Ambient Glow -->
+  <div class="bg-ambient-glow" aria-hidden="true">
+    <div class="glow-orb-1"></div>
+    <div class="glow-orb-2"></div>
+  </div>
+
+  <!-- Minimal Header -->
+  <header class="auth-header">
+    <div class="container auth-header-inner">
+      <a href="index.html" class="logo" aria-label="Retour à l'accueil Margeo">
+        <div class="logo-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="1" x2="12" y2="23"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+        </div>
+        <span>Margeo<span class="text-gradient">.</span></span>
+      </a>
+
+      <a href="inscription.html" class="legal-back-link" style="font-size: 0.88rem;">
+        <span>Nouveau ? <strong>Créer un compte</strong></span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Split Auth Layout -->
+  <div class="auth-main-wrapper">
+    <div class="auth-split-container">
+      
+      <!-- Left Panel: Compact Value Proposition -->
+      <div class="auth-value-panel">
+        <div>
+          <div class="auth-value-header">
+            <div class="badge">📊 Espace Membre</div>
+          </div>
+          <h1 class="auth-value-title">
+            Ton bilan du mois t'attend.
+          </h1>
+
+          <ul class="auth-benefits-list">
+            <li class="auth-benefit-item">
+              <div class="auth-benefit-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div class="auth-benefit-text">
+                <strong>5 calculs offerts</strong> chaque mois, à vie
+              </div>
+            </li>
+
+            <li class="auth-benefit-item">
+              <div class="auth-benefit-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><path d="M16 8l-8 8"></path><path d="M8.5 8.5h.01"></path><path d="M15.5 15.5h.01"></path></svg>
+              </div>
+              <div class="auth-benefit-text">
+                <strong>0 % commission facturée</strong> aux particuliers — calcul juste dès le départ
+              </div>
+            </li>
+
+            <li class="auth-benefit-item">
+              <div class="auth-benefit-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+              </div>
+              <div class="auth-benefit-text">
+                <strong>Sans carte bancaire</strong> pour commencer
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="auth-value-footer">
+          🔒 Connexion chiffrée SSL 256 bits.
+        </div>
+      </div>
+
+      <!-- Right Form Card -->
+      <div class="auth-form-card">
+        <h2 class="auth-form-title">Se connecter</h2>
+        <p class="auth-form-subtitle">Accédez à votre historique et vos outils de simulation.</p>
+
+        <!-- Simulated Error Banner -->
+        <div class="auth-error-banner" id="auth-error-banner">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          <span id="auth-error-text">Adresse email ou mot de passe incorrect.</span>
+        </div>
+
+        <form class="auth-form-fields" id="login-form" novalidate>
+          
+          <!-- Email Field -->
+          <div class="input-group">
+            <label for="login-email" class="auth-input-label">Adresse email</label>
+            <input type="email" id="login-email" class="auth-input-field" placeholder="ex: camille@gmail.com" required autocomplete="email">
+            <span class="field-error-msg" id="email-error-msg">Veuillez entrer une adresse email valide.</span>
+          </div>
+
+          <!-- Password Field with Forgot Link -->
+          <div class="input-group">
+            <div class="auth-input-label">
+              <label for="login-password">Mot de passe</label>
+              <a href="mot-de-passe-oublie.html" style="font-size: 0.8rem; color: var(--primary-600); font-weight: 500;">Mot de passe oublié ?</a>
+            </div>
+            <div class="password-input-wrapper">
+              <input type="password" id="login-password" class="auth-input-field" placeholder="••••••••" required autocomplete="current-password">
+              <button type="button" class="password-toggle-btn" id="toggle-pwd-btn">Afficher</button>
+            </div>
+            <span class="field-error-msg" id="pwd-error-msg">Veuillez renseigner votre mot de passe.</span>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-primary btn-glow" id="submit-login-btn" style="width: 100%; margin-top: 6px;">
+            <span id="btn-text">Se connecter</span>
+          </button>
+        </form>
+
+        <div class="auth-bottom-nav">
+          Pas encore de compte ? <a href="inscription.html">S'inscrire gratuitement</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Discreet Footer -->
+  <footer class="auth-discreet-footer">
+    <span>© 2026 Margeo SAS</span>
+    <span>•</span>
+    <a href="mentions-legales.html">Mentions Légales</a>
+    <span>•</span>
+    <a href="politique-de-confidentialite.html">Confidentialité</a>
+    <span>•</span>
+    <a href="cgu.html">CGU</a>
+  </footer>
+
+  <script>
+    const loginForm = document.getElementById('login-form');
+    const emailInput = document.getElementById('login-email');
+    const pwdInput = document.getElementById('login-password');
+    const togglePwdBtn = document.getElementById('toggle-pwd-btn');
+    const errorBanner = document.getElementById('auth-error-banner');
+    const submitBtn = document.getElementById('submit-login-btn');
+    const btnText = document.getElementById('btn-text');
+
+    const emailError = document.getElementById('email-error-msg');
+    const pwdError = document.getElementById('pwd-error-msg');
+
+    // Toggle Password Visibility
+    togglePwdBtn.addEventListener('click', () => {
+      const isPwd = pwdInput.type === 'password';
+      pwdInput.type = isPwd ? 'text' : 'password';
+      togglePwdBtn.textContent = isPwd ? 'Masquer' : 'Afficher';
+    });
+
+    // Form Submission & Simulated Authentication
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      errorBanner.classList.remove('show');
+      emailError.classList.remove('show');
+      pwdError.classList.remove('show');
+
+      let isValid = true;
+      const emailVal = emailInput.value.trim();
+      const pwdVal = pwdInput.value;
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+        emailError.classList.add('show');
+        emailInput.classList.add('input-error');
+        isValid = false;
+      } else {
+        emailInput.classList.remove('input-error');
+      }
+
+      if (!pwdVal) {
+        pwdError.classList.add('show');
+        pwdInput.classList.add('input-error');
+        isValid = false;
+      } else {
+        pwdInput.classList.remove('input-error');
+      }
+
+      if (!isValid) return;
+
+      // Simulated error if password is 'erreur'
+      if (pwdVal === 'erreur') {
+        errorBanner.classList.add('show');
+        return;
+      }
+
+      // Button Loading Animation
+      submitBtn.disabled = true;
+      btnText.textContent = 'Connexion en cours...';
+
+      setTimeout(() => {
+        try {
+          localStorage.setItem('margeo_logged_in', 'true');
+        } catch (err) {}
+        window.location.href = 'app.html';
+      }, 600);
+    });
+  </script>
+</body>
+</html>

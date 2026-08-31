@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foire Aux Questions (FAQ) — Margeo</title>
+  <meta name="description" content="Toutes les réponses à vos questions sur Margeo : fonctionnement du calculateur de marge Vinted, mode Particulier vs Pro, abonnements et sécurité.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟣</text></svg>">
+</head>
+<body>
+
+  <!-- Ambient Glow Effects -->
+  <div class="bg-ambient-glow" aria-hidden="true">
+    <div class="glow-orb-1"></div>
+    <div class="glow-orb-2"></div>
+  </div>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo" aria-label="Accueil Margeo">
+        <div class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+        </div>
+        <span>Margeo<span class="text-gradient">.</span></span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html#simulateur" class="nav-link">Simulateur</a></li>
+          <li><a href="index.html#comment-ca-marche" class="nav-link">Comment ça marche</a></li>
+          <li><a href="index.html#tarifs" class="nav-link">Tarifs</a></li>
+          <li><a href="blog.html" class="nav-link">Blog & Guides</a></li>
+          <li><a href="faq.html" class="nav-link active" style="color: var(--primary-600); font-weight: 700;">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="connexion.html" class="btn btn-secondary btn-sm">Connexion</a>
+        <a href="inscription.html" class="btn btn-primary btn-sm">Essai Gratuit</a>
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu mobile">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE NAVIGATION DRAWER -->
+  <div class="mobile-nav" id="mobile-nav">
+    <ul class="nav-links">
+      <li><a href="index.html#simulateur" class="nav-link">Simulateur en direct</a></li>
+      <li><a href="index.html#comment-ca-marche" class="nav-link">Comment ça marche</a></li>
+      <li><a href="index.html#tarifs" class="nav-link">Tarifs (4 formules)</a></li>
+      <li><a href="blog.html" class="nav-link">Blog & Guides</a></li>
+      <li><a href="faq.html" class="nav-link">Foire aux questions</a></li>
+    </ul>
+    <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
+      <a href="connexion.html" class="btn btn-secondary" style="width: 100%;">Connexion</a>
+      <a href="inscription.html" class="btn btn-primary" style="width: 100%;">Commencer gratuitement</a>
+    </div>
+  </div>
+
+  <!-- FAQ HERO & SEARCH -->
+  <section class="content-hero">
+    <div class="container">
+      <div class="section-badge">
+        <span>Centre d'aide & Questions</span>
+      </div>
+      <h1 class="content-hero-title">
+        Toutes tes questions sur <span class="text-gradient">Margeo</span>
+      </h1>
+      <p class="content-hero-subtitle">
+        Retrouvez ici toutes les explications détaillées sur le calcul des marges, les frais Vinted, nos formules et le fonctionnement de l'application.
+      </p>
+
+      <!-- Live Search Bar -->
+      <div class="faq-search-container">
+        <div class="faq-search-input-wrapper">
+          <span class="faq-search-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </span>
+          <input type="text" id="faq-search-input" class="faq-search-input" placeholder="Rechercher une question (ex: commission, URSSAF, gratuit, lot...)" aria-label="Rechercher dans la FAQ">
+          <button type="button" id="faq-search-clear" class="faq-search-clear" aria-label="Effacer la recherche">&times;</button>
+        </div>
+        <div id="faq-search-stats" style="font-size: 0.84rem; color: var(--text-muted); margin-top: 10px; display: none;"></div>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="faq-category-nav" role="tablist">
+        <button type="button" class="faq-cat-btn active" data-category="all" role="tab" aria-selected="true">
+          <span>✨ Toutes les questions</span>
+        </button>
+        <button type="button" class="faq-cat-btn" data-category="general" role="tab" aria-selected="false">
+          <span>💡 Général</span>
+        </button>
+        <button type="button" class="faq-cat-btn" data-category="calcul" role="tab" aria-selected="false">
+          <span>⚙️ Calcul & Fonctionnement</span>
+        </button>
+        <button type="button" class="faq-cat-btn" data-category="tarifs" role="tab" aria-selected="false">
+          <span>💳 Tarifs & Abonnement</span>
+        </button>
+        <button type="button" class="faq-cat-btn" data-category="securite" role="tab" aria-selected="false">
+          <span>🔒 Compte & Sécurité</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ LIST SECTION -->
+  <section style="padding: 0 0 90px 0;">
+    <div class="container" style="max-width: 840px;">
+      
+      <!-- Empty Search Result Card -->
+      <div id="faq-empty-state" class="app-empty-state-card" style="display: none; background: #FFFFFF; border: 1.5px solid var(--border-light); border-radius: var(--radius-xl);">
+        <div class="app-empty-icon">🔍</div>
+        <div class="app-empty-title">Aucune question trouvée</div>
+        <div class="app-empty-desc">Aucun résultat ne correspond à votre recherche. Essayez un autre mot-clé ou contactez notre équipe.</div>
+        <button type="button" class="btn btn-secondary btn-sm" id="faq-reset-search-btn">Réinitialiser la recherche</button>
+      </div>
+
+      <!-- ========================================================
+           CATÉGORIE 1 : GÉNÉRAL
+           ======================================================== -->
+      <div class="faq-category-section" data-cat-section="general">
+        <div class="faq-category-header">
+          <div class="faq-category-title">
+            <span>💡 Général</span>
+          </div>
+          <span class="faq-category-count">3 questions</span>
+        </div>
+
+        <div class="faq-list">
+          
+          <!-- Q1 -->
+          <div class="faq-item" data-category="general">
+            <button class="faq-question" aria-expanded="false">
+              <span>Qu'est-ce que Margeo ?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <p>
+                <strong>Margeo</strong> est un outil de simulation et de suivi de rentabilité spécialement conçu pour les vendeurs Vinted (particuliers et professionnels). Il calcule instantanément votre bénéfice net exact en déduisant votre prix d'achat, les éventuels frais de port ou d'emballage, et applique automatiquement les bonnes règles de commission selon votre statut (0 % pour les particuliers, 5 % pour les Vinted Pro).
+              </p>
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="faq-item" data-category="general">
+            <button class="faq-question" aria-expanded="false">
+              <span>Margeo est-il affilié à Vinted ?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <p>
+                <strong>Non.</strong> Margeo est un service 100 % indépendant développé pour apporter transparence et clarté financière aux revendeurs. Vinted est une marque déposée appartenant à Vinted, UAB. Margeo n'a aucun lien capitalistique, contractuel ou d'affiliation avec la plateforme Vinted.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="faq-item" data-category="general">
+            <button class="faq-question" aria-expanded="false">
+              <span>Ça fonctionne aussi pour Leboncoin ou Vestiaire Collective ?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <p>
+                <strong>Pas encore.</strong> Margeo est aujourd'hui ultra-optimisé pour les règles et spécificités de Vinted. Nous étudions l'extension à d'autres plateformes de seconde main (Leboncoin, Vestiaire Collective, eBay) en fonction des retours et des demandes de notre communauté d'utilisateurs.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ========================================================
+           CATÉGORIE 2 : CALCUL & FONCTIONNEMENT
+           ======================================================== -->
+      <div class="faq-category-section" data-cat-section="calcul">
+        <div class="faq-category-header">
+          <div class="faq-category-title">
+            <span>⚙️ Calcul & Fonctionnement</span>
+          </div>
+          <span class="faq-category-count">5 questions</span>
+        </div>
+
+        <div class="faq-list">
+          
+          <!-- Q4 -->
+          <div class="faq-item" data-category="calcul">
+            <button class="faq-question" aria-expanded="false">
+              <span>Pourquoi Margeo ne déduit pas de commission en mode particulier ?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Parce que <strong>Vinted ne prend aucune commission au vendeur particulier</strong> ! Lorsque vous vendez un article 35,00 € en tant que particulier, vous recevez exactement 35,00 € dans votre porte-monnaie Vinted. La « Protection Acheteurs » (0,70 € + 5 %) et les frais de port sont payés par l'acheteur <em>en plus</em> du prix de l'article, et ne sont jamais prélevés sur vos gains. Margeo affiche ces frais à titre informatif, sans jamais les déduire de votre bénéfice.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="faq-item" data-category="calcul">
+            <button class="faq-question" aria-expanded="false">
+              <span>C'est quoi la différence entre particulier et Vinted Pro ?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Le <strong>particulier</strong> vend occasionnellement des affaires personnelles sans but commercial : 0 % de commission vendeur. Le <strong>vendeur Vinted Pro</strong> est immatriculé (auto-entreprise, société) et vend dans un cadre professionnel : Vinted prélève alors une commission de 5 % HT sur le prix de l'article, et le vendeur est soumis aux obligations fiscales et comptables françaises (URSSAF, déclarations).
+              </p>
+            </div>
+          </div>
+
+          <!-- Q6 -->
+          <div class="faq-item" data-category="calcul">
+            <button class="faq-question" aria-expanded="false">
+              <span>Comment savoir si je dois utiliser le mode Pro ?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Si vous achetez des vêtements ou objets dans l'intention de les revendre avec une marge (achat-revente régulier), l'administration fiscale française et les CGU de Vinted imposent d'exercer sous un statut professionnel (ex : micro-entreprise). Si vous vendez uniquement des pièces issues de votre dressing personnel pour faire du tri, vous restez en mode particulier.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q7 -->
+          <div class="faq-item" data-category="calcul">
+            <button class="faq-question" aria-expanded="false">
+              <span>C'est quoi un « lot de commande » et à quoi ça sert ?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <p>
+                La fonctionnalité <strong>Lot de commande</strong> (disponible dans les formules Pro Reseller et Empire) permet de rattacher plusieurs pièces vendues individuellement à une dépense groupée initiale (par exemple : un carton de 20 pièces acheté 200 € chez un grossiste ou en brocante). Margeo calcule en direct votre barre de progression vers le point mort (seuil de rentabilité) pour savoir précisément à partir de quel article vendu vous passez dans le vert.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q8 -->
+          <div class="faq-item" data-category="calcul">
+            <button class="faq-question" aria-expanded="false">
+              <span>Les cotisations URSSAF affichées sont-elles exactes ?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <p>
+                L'estimation des cotisations (12,3 % du chiffre d'affaires pour les activités d'achat-revente en micro-entreprise) est <strong>fournie à titre indicatif</strong> pour anticiper vos charges réelles. Elle ne prend pas en compte d'éventuelles réductions spécifiques (comme l'ACRE) ni d'autres régimes d'imposition. Margeo ne se substitue pas à un logiciel comptable agréé ou aux conseils d'un expert-comptable.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ========================================================
+           CATÉGORIE 3 : TARIFS & ABONNEMENT
+           ======================================================== -->
+      <div class="faq-category-section" data-cat-section="tarifs">
+        <div class="faq-category-header">
+          <div class="faq-category-title">
+            <span>💳 Tarifs & Abonnement</span>
+          </div>
+          <span class="faq-category-count">4 questions</span>
+        </div>
+
+        <div class="faq-list">
+          
+          <!-- Q9 -->
+          <div class="faq-item" data-category="tarifs">
+            <button class="faq-question" aria-expanded="false">
+              <span>Le plan gratuit est-il vraiment gratuit à vie ?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <p>
+                <strong>Oui, sans limite de temps.</strong> Notre formule Gratuite vous offre 5 calculs complets enregistrés chaque mois, pour toujours, sans jamais avoir besoin de renseigner de carte bancaire. C'est parfait pour les vendeurs occasionnels.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q10 -->
+          <div class="faq-item" data-category="tarifs">
+            <button class="faq-question" aria-expanded="false">
+              <span>Je peux changer de formule à tout moment ?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <p>
+                <strong>Oui, instantanément.</strong> Vous pouvez passer à un forfait supérieur pour débloquer les lots de commande ou l'export comptable, ou repasser sur un forfait inférieur à tout moment depuis l'onglet <em>Abonnement</em> de votre espace Paramètres.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q11 -->
+          <div class="faq-item" data-category="tarifs">
+            <button class="faq-question" aria-expanded="false">
+              <span>Comment annuler mon abonnement ?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <p>
+                <strong>En 1 seul clic, sans aucun piège.</strong> Rendez-vous dans <em>Paramètres > Abonnement > Résilier</em>. Votre abonnement s'arrêtera à la fin de la période payée en cours, sans frais cachés ni démarche fastidieuse.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q12 -->
+          <div class="faq-item" data-category="tarifs">
+            <button class="faq-question" aria-expanded="false">
+              <span>Y a-t-il un engagement ?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <p>
+                <strong>Aucun engagement sur nos forfaits mensuels :</strong> vous êtes libre d'annuler d'un mois sur l'autre. Pour les abonnements annuels (qui bénéficient de 2 mois offerts), le paiement est annuel renouvelable chaque année.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ========================================================
+           CATÉGORIE 4 : COMPTE & SÉCURITÉ
+           ======================================================== -->
+      <div class="faq-category-section" data-cat-section="securite">
+        <div class="faq-category-header">
+          <div class="faq-category-title">
+            <span>🔒 Compte & Sécurité</span>
+          </div>
+          <span class="faq-category-count">3 questions</span>
+        </div>
+
+        <div class="faq-list">
+          
+          <!-- Q13 -->
+          <div class="faq-item" data-category="securite">
+            <button class="faq-question" aria-expanded="false">
+              <span>Mes données sont-elles sécurisées ?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Vos données sont chiffrées selon les standards de sécurité les plus stricts (protocole HTTPS / SSL 256 bits). Nous appliquons une politique de minimisation des données conforme au RGPD et nous ne vendons jamais aucune information personnelle à des tiers ou des régies publicitaires.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q14 -->
+          <div class="faq-item" data-category="securite">
+            <button class="faq-question" aria-expanded="false">
+              <span>Margeo a-t-il accès à mon compte Vinted ?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <p>
+                <strong>Non, absolument aucun accès.</strong> Margeo ne demande jamais vos identifiants ou mot de passe Vinted. Toutes les simulations sont basées sur les chiffres que vous renseignez vous-même. Votre compte Vinted reste totalement sécurisé et isolé.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q15 -->
+          <div class="faq-item" data-category="securite">
+            <button class="faq-question" aria-expanded="false">
+              <span>Comment supprimer mon compte et mes données ?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Vous pouvez supprimer définitivement votre compte et l'ensemble de vos historiques d'articles à tout moment depuis <em>Paramètres > Profil > Zone de danger > Supprimer mon compte</em>, ou sur simple demande par email à <strong>contact@margeo.fr</strong>.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Support Card -->
+      <div class="faq-support-card">
+        <div style="font-size: 2.2rem; margin-bottom: 12px;">💬</div>
+        <h2 class="faq-support-title">Tu ne trouves pas ta réponse ?</h2>
+        <p class="faq-support-desc">
+          Notre équipe est à votre disposition pour répondre à toutes vos questions sous 24h ouvrées.
+        </p>
+        <a href="mailto:contact@margeo.fr" class="btn btn-primary btn-glow" style="display: inline-flex; align-items: center; gap: 8px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          <span>Écrire à contact@margeo.fr</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-grid">
+        
+        <!-- Brand Column -->
+        <div class="footer-brand">
+          <a href="index.html" class="logo" aria-label="Accueil Margeo">
+            <div class="logo-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="12" y1="1" x2="12" y2="23"></line>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
+            </div>
+            <span>Margeo<span class="text-gradient">.</span></span>
+          </a>
+          <p class="footer-description">
+            Le premier outil dédié au calcul de marge réelle et au pilotage de la rentabilité pour les vendeurs particuliers et professionnels sur Vinted.
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <div class="footer-heading">Navigation</div>
+          <ul class="footer-links">
+            <li><a href="index.html#simulateur">Simulateur de marge</a></li>
+            <li><a href="index.html#comment-ca-marche">Comment ça marche</a></li>
+            <li><a href="index.html#tarifs">Tarifs & Offres</a></li>
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="faq.html">FAQ complète</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal Links -->
+        <div>
+          <div class="footer-heading">Légal & Confidentialité</div>
+          <ul class="footer-links">
+            <li><a href="mentions-legales.html">Mentions Légales</a></li>
+            <li><a href="politique-de-confidentialite.html">Politique de Confidentialité</a></li>
+            <li><a href="cgu.html">Conditions Générales d'Utilisation</a></li>
+            <li><a href="cgv.html">Conditions Générales de Vente</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Box -->
+        <div>
+          <div class="footer-heading">Contact & Support</div>
+          <div class="contact-card">
+            <div class="contact-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <span>contact@margeo.fr</span>
+            </div>
+            <div class="contact-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+              <span>Réponse sous 24h ouvrées</span>
+            </div>
+            <div class="contact-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span>Made with 💜 in France</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-disclaimer">
+        Margeo est un service indépendant et n'est pas affilié à Vinted UAB. Vinted est une marque déposée de Vinted, UAB. Les calculs et estimations fiscales (URSSAF) sont fournis à titre indicatif et ne se substituent pas aux avis de professionnels de la comptabilité.
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 Margeo SAS. Tous droits réservés.</div>
+        <div class="footer-legal-links">
+          <a href="mentions-legales.html">Mentions Légales</a>
+          <a href="politique-de-confidentialite.html">Politique de Confidentialité</a>
+          <a href="cgu.html">CGU</a>
+          <a href="cgv.html">CGV</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FAQ Interactive Engine (Search, Filter, Accordion) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Mobile Drawer Toggle
+      const mobileToggle = document.getElementById('mobile-toggle');
+      const mobileNav = document.getElementById('mobile-nav');
+      if (mobileToggle && mobileNav) {
+        mobileToggle.addEventListener('click', () => {
+          mobileNav.classList.toggle('active');
+        });
+      }
+
+      // Accordion Logic (Only one item open at a time per section, or smooth toggle)
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(item => {
+        const questionBtn = item.querySelector('.faq-question');
+        questionBtn.addEventListener('click', () => {
+          const isActive = item.classList.contains('active');
+          
+          // Close other items in the same section for cleaner UX
+          const parentSection = item.closest('.faq-category-section');
+          if (parentSection) {
+            parentSection.querySelectorAll('.faq-item').forEach(sibling => {
+              if (sibling !== item) {
+                sibling.classList.remove('active');
+                sibling.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+              }
+            });
+          }
+
+          item.classList.toggle('active', !isActive);
+          questionBtn.setAttribute('aria-expanded', !isActive ? 'true' : 'false');
+        });
+      });
+
+      // Filter by Category Buttons
+      const catButtons = document.querySelectorAll('.faq-cat-btn');
+      const catSections = document.querySelectorAll('.faq-category-section');
+
+      let currentCategory = 'all';
+
+      catButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          catButtons.forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected', 'true');
+
+          currentCategory = btn.dataset.category;
+          filterQuestions();
+        });
+      });
+
+      // Live Search Filter
+      const searchInput = document.getElementById('faq-search-input');
+      const clearSearchBtn = document.getElementById('faq-search-clear');
+      const searchStats = document.getElementById('faq-search-stats');
+      const emptyState = document.getElementById('faq-empty-state');
+      const resetSearchBtn = document.getElementById('faq-reset-search-btn');
+
+      function filterQuestions() {
+        const query = searchInput.value.trim().toLowerCase();
+        let totalVisible = 0;
+
+        if (query.length > 0) {
+          clearSearchBtn.classList.add('visible');
+        } else {
+          clearSearchBtn.classList.remove('visible');
+        }
+
+        catSections.forEach(section => {
+          const sectionCat = section.dataset.catSection;
+          let sectionVisibleCount = 0;
+
+          const items = section.querySelectorAll('.faq-item');
+          items.forEach(item => {
+            const questionText = item.querySelector('.faq-question span').textContent.toLowerCase();
+            const answerText = item.querySelector('.faq-answer').textContent.toLowerCase();
+            
+            const matchesQuery = query === '' || questionText.includes(query) || answerText.includes(query);
+            const matchesCategory = currentCategory === 'all' || sectionCat === currentCategory;
+
+            if (matchesQuery && matchesCategory) {
+              item.style.display = 'block';
+              sectionVisibleCount++;
+              totalVisible++;
+            } else {
+              item.style.display = 'none';
+            }
+          });
+
+          // Show/hide section header based on whether it has visible questions
+          if (sectionVisibleCount > 0) {
+            section.style.display = 'block';
+          } else {
+            section.style.display = 'none';
+          }
+        });
+
+        // Search Stats & Empty State
+        if (query !== '') {
+          searchStats.style.display = 'block';
+          searchStats.textContent = `${totalVisible} question${totalVisible > 1 ? 's' : ''} trouvée${totalVisible > 1 ? 's' : ''} pour « ${searchInput.value} »`;
+        } else {
+          searchStats.style.display = 'none';
+        }
+
+        if (totalVisible === 0) {
+          emptyState.style.display = 'flex';
+        } else {
+          emptyState.style.display = 'none';
+        }
+      }
+
+      searchInput.addEventListener('input', filterQuestions);
+
+      clearSearchBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        filterQuestions();
+        searchInput.focus();
+      });
+
+      if (resetSearchBtn) {
+        resetSearchBtn.addEventListener('click', () => {
+          searchInput.value = '';
+          currentCategory = 'all';
+          catButtons.forEach(b => b.classList.toggle('active', b.dataset.category === 'all'));
+          filterQuestions();
+        });
+      }
+    });
+  </script>
+</body>
+</html>

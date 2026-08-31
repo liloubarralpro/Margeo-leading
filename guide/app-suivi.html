@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suivi & Lots de commande — Margeo App</title>
+  <meta name="description" content="Suivi article par article et amortissement des lots d'achats groupés sur Vinted.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟣</text></svg>">
+</head>
+<body class="app-layout">
+
+  <!-- Unified Dynamic Sidebar Container -->
+  <div id="app-sidebar-container"></div>
+
+  <!-- App Main Content Area -->
+  <main class="app-main">
+    
+    <!-- Top Header Row -->
+    <div class="app-header-row">
+      <div class="app-page-heading">
+        <h1>Suivi & Lots de commande 📦</h1>
+        <p class="app-page-subtitle">Pilotez vos ventes pièce par pièce et suivez la rentabilité de vos commandes groupées.</p>
+      </div>
+
+      <div class="app-header-actions">
+        <a href="app-simulateur.html" class="btn btn-primary btn-sm btn-glow">
+          <span>+ Ajouter un article</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Tab Navigation Header -->
+    <div class="app-tabs-nav">
+      <button type="button" class="app-tab-btn active" id="tab-btn-articles">
+        📦 Suivi des Articles (<span id="tab-count-articles">0</span>)
+      </button>
+      <button type="button" class="app-tab-btn" id="tab-btn-lots">
+        ⭐ Lots de commande (<span id="tab-count-lots">1</span>)
+      </button>
+    </div>
+
+    <!-- ========================================================
+         TAB 1 : SUIVI DES ARTICLES
+         ======================================================== -->
+    <div id="tab-pane-articles">
+      
+      <div class="app-section-card">
+        
+        <!-- Controls: Filters & Month Selector -->
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: 20px;">
+          <!-- Filter Buttons -->
+          <div style="display: flex; gap: 8px;">
+            <button type="button" class="btn btn-secondary btn-sm filter-btn active" data-filter="all" id="filter-all">Tous</button>
+            <button type="button" class="btn btn-secondary btn-sm filter-btn" data-filter="sold" id="filter-sold">Vendus</button>
+            <button type="button" class="btn btn-secondary btn-sm filter-btn" data-filter="pending" id="filter-pending">En stock</button>
+          </div>
+
+          <!-- Month Selector -->
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <label for="month-select" style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">Période :</label>
+            <select id="month-select" class="input-field" style="width: auto; padding: 6px 12px; font-size: 0.85rem;">
+              <option value="current">Août 2026 (Mois en cours)</option>
+              <option value="past-1">Juillet 2026 (Starter+)</option>
+              <option value="past-2">Juin 2026 (Starter+)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Articles Table -->
+        <div class="app-table-wrapper" id="articles-table-container">
+          <table class="app-table">
+            <thead>
+              <tr>
+                <th>Article</th>
+                <th>Source</th>
+                <th>Achat</th>
+                <th>Statut</th>
+                <th>Prix Vente</th>
+                <th>Gain / Perte</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="suivi-articles-tbody">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Dynamic Bottom Recap Strip -->
+        <div class="monthly-recap-banner" style="margin-top: 24px;">
+          <div class="recap-stats-group">
+            <div class="recap-stat-item">
+              <span class="label">Total dépensé</span>
+              <span class="val" id="suivi-total-spent">0,00 €</span>
+            </div>
+            <div class="recap-stat-item">
+              <span class="label">Total encaissé</span>
+              <span class="val" id="suivi-total-earned">0,00 €</span>
+            </div>
+            <div class="recap-stat-item">
+              <span class="label">Bénéfice Net</span>
+              <span class="val" id="suivi-net-profit" style="color: #34D399;">+0,00 €</span>
+            </div>
+          </div>
+          <div class="recap-verdict">
+            <div class="recap-verdict-title">Bilan du mois</div>
+            <div id="suivi-verdict-text" style="font-size: 0.88rem;">Calculé en direct</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ========================================================
+         TAB 2 : LOTS DE COMMANDE (PRO RESELLER+)
+         ======================================================== -->
+    <div id="tab-pane-lots" style="display: none;">
+      
+      <!-- Lots Container (Dynamic or Locked) -->
+      <div id="lots-content-wrapper">
+        
+        <div class="app-section-card">
+          <div class="app-section-header">
+            <div>
+              <h2 class="app-section-title">Amortissement des commandes groupées</h2>
+              <p class="app-page-subtitle">Suivez en direct dès que vos ventes remboursent la dépense initiale de votre lot.</p>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm btn-glow" id="open-add-lot-modal-btn">
+              + Créer un nouveau lot
+            </button>
+          </div>
+
+          <!-- Active Lot Break-even Card -->
+          <div id="lots-cards-list">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Modal Nouveau Lot -->
+  <div class="modal-overlay" id="add-lot-modal" role="dialog" aria-modal="true">
+    <div class="modal-container">
+      <button class="modal-close" id="close-lot-modal-btn">&times;</button>
+      
+      <h3 style="font-size: 1.35rem; margin-bottom: 6px;">Créer un Lot de commande</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">
+        Regroupez vos achats en gros ou commandes groupées pour suivre leur amortissement.
+      </p>
+
+      <form id="add-lot-form" class="modal-form" style="margin-top: 0;">
+        <div class="input-group">
+          <label for="new-lot-name" style="font-size: 0.85rem; font-weight: 600;">Nom du lot</label>
+          <input type="text" id="new-lot-name" class="input-field" placeholder="ex: Carton grossiste #2, Lot vintage 50 pcs..." required style="font-size: 0.95rem;">
+        </div>
+
+        <div class="input-group">
+          <label for="new-lot-cost" style="font-size: 0.85rem; font-weight: 600;">Coût total d'achat du lot (€)</label>
+          <input type="number" id="new-lot-cost" class="input-field" placeholder="ex: 180" min="1" step="1" required style="font-size: 1.1rem; font-weight: 700;">
+        </div>
+
+        <div class="input-group">
+          <label for="new-lot-source" style="font-size: 0.85rem; font-weight: 600;">Fournisseur / Source</label>
+          <input type="text" id="new-lot-source" class="input-field" placeholder="ex: Grossiste Italie, Déstockage..." style="font-size: 0.95rem;">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-glow" style="width: 100%; margin-top: 8px;">
+          Enregistrer le lot ✨
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="app-store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      MargeoStore.renderAppSidebar('suivi');
+
+      const user = MargeoStore.getUser();
+      let currentFilter = 'all';
+
+      const tabBtnArticles = document.getElementById('tab-btn-articles');
+      const tabBtnLots = document.getElementById('tab-btn-lots');
+      const tabPaneArticles = document.getElementById('tab-pane-articles');
+      const tabPaneLots = document.getElementById('tab-pane-lots');
+
+      const tabCountArticles = document.getElementById('tab-count-articles');
+      const tabCountLots = document.getElementById('tab-count-lots');
+
+      const tbody = document.getElementById('suivi-articles-tbody');
+      const filterBtns = document.querySelectorAll('.filter-btn');
+
+      const suiviTotalSpent = document.getElementById('suivi-total-spent');
+      const suiviTotalEarned = document.getElementById('suivi-total-earned');
+      const suiviNetProfit = document.getElementById('suivi-net-profit');
+      const suiviVerdictText = document.getElementById('suivi-verdict-text');
+
+      const lotsWrapper = document.getElementById('lots-content-wrapper');
+      const lotsCardsList = document.getElementById('lots-cards-list');
+
+      // Modals
+      const addLotModal = document.getElementById('add-lot-modal');
+      const openAddLotBtn = document.getElementById('open-add-lot-modal-btn');
+      const closeLotModalBtn = document.getElementById('close-lot-modal-btn');
+      const addLotForm = document.getElementById('add-lot-form');
+
+      // Tab Switching
+      tabBtnArticles.addEventListener('click', () => {
+        tabBtnArticles.classList.add('active');
+        tabBtnLots.classList.remove('active');
+        tabPaneArticles.style.display = 'block';
+        tabPaneLots.style.display = 'none';
+      });
+
+      tabBtnLots.addEventListener('click', () => {
+        tabBtnLots.classList.add('active');
+        tabBtnArticles.classList.remove('active');
+        tabPaneLots.style.display = 'block';
+        tabPaneArticles.style.display = 'none';
+      });
+
+      // Filter buttons
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentFilter = btn.dataset.filter;
+          renderArticles();
+        });
+      });
+
+      function renderArticles() {
+        const articles = MargeoStore.getArticles();
+        tabCountArticles.textContent = articles.length;
+
+        let filtered = articles;
+        if (currentFilter === 'sold') {
+          filtered = articles.filter(a => a.status === 'sold');
+        } else if (currentFilter === 'pending') {
+          filtered = articles.filter(a => a.status === 'pending');
+        }
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:32px; color:var(--text-muted);">Aucun article correspondant au filtre.</td></tr>`;
+        } else {
+          tbody.innerHTML = filtered.map(art => {
+            const gain = MargeoStore.calculateArticleGain(art, user.sellerMode);
+            const isSold = art.status === 'sold';
+            return `
+              <tr>
+                <td><strong>${art.name}</strong></td>
+                <td><span style="color:var(--text-muted); font-size:0.8rem;">${art.source}</span></td>
+                <td>${MargeoStore.formatEuro(art.buyPrice)}</td>
+                <td>
+                  <span class="app-badge-status ${isSold ? 'sold' : 'pending'}">
+                    ${isSold ? '✓ Vendu' : '⏳ En stock'}
+                  </span>
+                </td>
+                <td>${isSold ? MargeoStore.formatEuro(art.sellPrice) : '<span style="color:var(--text-subtle);">-</span>'}</td>
+                <td>
+                  <strong style="color:${gain >= 0 ? 'var(--accent-success)' : 'var(--accent-danger)'};">
+                    ${gain >= 0 ? '+' : ''}${MargeoStore.formatEuro(gain)}
+                  </strong>
+                </td>
+                <td style="text-align: right; white-space: nowrap;">
+                  <button class="btn btn-secondary btn-sm" onclick="handleToggleStatus('${art.id}')" style="padding: 4px 8px; font-size: 0.75rem; margin-right: 4px;">
+                    ${isSold ? 'Remettre en stock' : 'Marquer vendu'}
+                  </button>
+                  <button class="btn btn-secondary btn-sm" onclick="handleDeleteArticle('${art.id}')" style="padding: 4px 8px; font-size: 0.75rem; color:var(--accent-danger);" title="Supprimer">
+                    🗑️
+                  </button>
+                </td>
+              </tr>
+            `;
+          }).join('');
+        }
+
+        // Summary
+        const summary = MargeoStore.getMonthlySummary(user.sellerMode);
+        suiviTotalSpent.textContent = MargeoStore.formatEuro(summary.totalSpent);
+        suiviTotalEarned.textContent = MargeoStore.formatEuro(summary.totalEarned);
+        suiviNetProfit.textContent = (summary.netProfit >= 0 ? '+' : '') + MargeoStore.formatEuro(summary.netProfit);
+        suiviVerdictText.innerHTML = `Bénéfice net : <strong>${(summary.netProfit >= 0 ? '+' : '') + MargeoStore.formatEuro(summary.netProfit)}</strong> (${summary.soldCount} vendus, ${summary.inStockCount} en stock)`;
+      }
+
+      function renderLots() {
+        const lots = MargeoStore.getLots();
+        const articles = MargeoStore.getArticles();
+        tabCountLots.textContent = lots.length;
+
+        // Check if user is allowed to access lots
+        if (user.plan === 'gratuit' || user.plan === 'starter') {
+          lotsWrapper.innerHTML = `
+            <div class="app-locked-container">
+              <div class="app-locked-backdrop">
+                <div class="app-section-card">
+                  <div class="app-section-title">Amortissement des commandes groupées</div>
+                  <div class="break-even-card"><div class="progress-track"><div class="progress-bar-fill" style="width: 75%;"></div></div></div>
+                </div>
+              </div>
+              <div class="app-locked-overlay">
+                <div class="locked-badge-pill">⭐ Pro Reseller & Empire</div>
+                <div class="locked-overlay-title">Fonctionnalité « Lot de commande »</div>
+                <div class="locked-overlay-desc">Visualisez l'amortissement précis de vos achats groupés et sachez exactement quand vous passez dans le vert.</div>
+                <a href="app-parametres.html#abonnement" class="btn btn-primary btn-sm btn-glow">Passer à Pro Reseller (9€/m)</a>
+              </div>
+            </div>
+          `;
+          return;
+        }
+
+        lotsCardsList.innerHTML = lots.map(lot => {
+          const lotArticles = articles.filter(a => a.lotId === lot.id);
+          const recovered = lotArticles.filter(a => a.status === 'sold').reduce((sum, a) => sum + (parseFloat(a.sellPrice) || 0), 0);
+          const percent = lot.totalCost > 0 ? Math.min(100, (recovered / lot.totalCost) * 100) : 0;
+          const isInTheGreen = recovered >= lot.totalCost;
+          const remaining = Math.max(0, lot.totalCost - recovered);
+
+          return `
+            <div class="break-even-card ${isInTheGreen ? 'in-the-green' : ''}" style="margin-bottom: 20px;">
+              <div class="progress-label-row">
+                <div class="lot-summary-title">
+                  <strong>${lot.name}</strong> — ${MargeoStore.formatEuro(lot.totalCost)} de coût total, <strong>${MargeoStore.formatEuro(recovered)}</strong> récupérés (${percent.toFixed(0)} %)
+                </div>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">Source : ${lot.source} • ${lotArticles.length} article(s) rattaché(s)</span>
+              </div>
+
+              <div class="progress-track">
+                <div class="progress-bar-fill" style="width: ${percent}%;"></div>
+              </div>
+
+              <div class="break-even-status">
+                ${isInTheGreen 
+                  ? `<span class="green-tag">🎉 Seuil de rentabilité franchi : Tu es dans le vert ! (+${MargeoStore.formatEuro(recovered - lot.totalCost)} de profit pur)</span>`
+                  : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                     <span>Encore <strong>${MargeoStore.formatEuro(remaining)}</strong> pour atteindre le seuil de rentabilité</span>`
+                }
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Modal open / close
+      if (openAddLotBtn) {
+        openAddLotBtn.addEventListener('click', () => addLotModal.classList.add('active'));
+      }
+      if (closeLotModalBtn) {
+        closeLotModalBtn.addEventListener('click', () => addLotModal.classList.remove('active'));
+      }
+      if (addLotForm) {
+        addLotForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const name = document.getElementById('new-lot-name').value.trim();
+          const cost = parseFloat(document.getElementById('new-lot-cost').value) || 0;
+          const source = document.getElementById('new-lot-source').value.trim() || 'Grossiste';
+
+          MargeoStore.addLot({ name, totalCost: cost, source });
+          addLotModal.classList.remove('active');
+          addLotForm.reset();
+          renderLots();
+        });
+      }
+
+      // Month select lock preview
+      const monthSelect = document.getElementById('month-select');
+      monthSelect.addEventListener('change', (e) => {
+        if (e.target.value !== 'current' && user.plan === 'gratuit') {
+          alert("🔒 L'historique des mois passés est réservé aux membres Starter, Pro Reseller et Empire. Passez à Starter pour y accéder !");
+          e.target.value = 'current';
+        }
+      });
+
+      renderArticles();
+      renderLots();
+    });
+
+    function handleToggleStatus(id) {
+      MargeoStore.toggleArticleStatus(id);
+      window.location.reload();
+    }
+
+    function handleDeleteArticle(id) {
+      if (confirm('Supprimer définitivement cet article ?')) {
+        MargeoStore.deleteArticle(id);
+        window.location.reload();
+      }
+    }
+  </script>
+</body>
+</html>

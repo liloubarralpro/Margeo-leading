@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Margeo App</title>
+  <meta name="description" content="Tableau de bord de suivi de marge et de rentabilité pour vos ventes Vinted.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟣</text></svg>">
+</head>
+<body class="app-layout">
+
+  <!-- Unified Dynamic Sidebar Container -->
+  <div id="app-sidebar-container"></div>
+
+  <!-- App Main Content Area -->
+  <main class="app-main">
+    
+    <!-- Top Header Row -->
+    <div class="app-header-row">
+      <div class="app-page-heading">
+        <h1 id="user-greeting">Bonjour Camille 👋</h1>
+        <p class="app-page-subtitle">Voici l'état de votre rentabilité sur vos ventes Vinted du mois en cours.</p>
+      </div>
+
+      <div class="app-header-actions">
+        <div class="seller-mode-pill" id="active-mode-badge">
+          <span>👤 Mode Particulier (0% comm.)</span>
+        </div>
+        
+        <a href="app-simulateur.html" class="btn btn-primary btn-sm btn-glow">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>+ Ajouter un article</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Discreet Free Plan Limit Alert Banner (Displayed if 5/5 reached) -->
+    <div class="app-limit-alert-banner" id="limit-banner" style="display: none;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 1.2rem;">⚠️</span>
+        <div>
+          <strong>Limite mensuelle atteinte :</strong> Vous avez utilisé 5/5 calculs gratuits ce mois-ci.
+        </div>
+      </div>
+      <a href="app-parametres.html#abonnement" class="btn btn-secondary btn-sm" style="background: #FFFFFF; font-weight: 700; color: #92400E; border-color: #FDE68A;">
+        Passer à Starter (5€/m)
+      </a>
+    </div>
+
+    <!-- Main Month KPIs Grid -->
+    <div class="app-stats-grid">
+      <!-- 1. Total Dépensé -->
+      <div class="app-stat-card">
+        <div class="app-stat-top">
+          <span class="app-stat-title">Total dépensé (Achat + Frais)</span>
+          <span style="font-size: 1.1rem;">🏷️</span>
+        </div>
+        <div class="app-stat-value" id="kpi-total-spent">61,00 €</div>
+        <div class="app-stat-meta">Coûts engagés sur le mois</div>
+      </div>
+
+      <!-- 2. Total Encaissé -->
+      <div class="app-stat-card">
+        <div class="app-stat-top">
+          <span class="app-stat-title">Total Encaissé Vinted</span>
+          <span style="font-size: 1.1rem;">💳</span>
+        </div>
+        <div class="app-stat-value" id="kpi-total-earned">142,00 €</div>
+        <div class="app-stat-meta" id="kpi-sold-count">3 articles vendus</div>
+      </div>
+
+      <!-- 3. Bénéfice Net Réel (Featured) -->
+      <div class="app-stat-card featured-profit">
+        <div class="app-stat-top">
+          <span class="app-stat-title">Bénéfice Net Réel</span>
+          <span class="app-stat-badge-trend" style="background: rgba(16, 185, 129, 0.2); color: #34D399;">+14 € vs mois dernier</span>
+        </div>
+        <div class="app-stat-value" id="kpi-net-profit">+81,00 €</div>
+        <div class="app-stat-meta" id="kpi-margin-rate">Marge nette globale : +57,0 %</div>
+      </div>
+    </div>
+
+    <!-- Active Batch Order Widget (Pro Reseller+) -->
+    <div class="app-section-card" id="lot-widget-container">
+      <div class="app-section-header">
+        <div class="app-section-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          <span>Lot de commande en cours</span>
+        </div>
+        <a href="app-suivi.html#lots" class="btn btn-secondary btn-sm" style="font-size: 0.8rem;">Gérer les lots →</a>
+      </div>
+
+      <div class="break-even-card" style="margin-bottom: 0;">
+        <div class="progress-label-row">
+          <div class="lot-summary-title" id="dash-lot-title">
+            <strong>Commande d'achat groupé #1</strong> — 235,00 € de coût total, <strong>178,00 €</strong> récupérés (75 %)
+          </div>
+        </div>
+        <div class="progress-track" style="margin-bottom: 10px;">
+          <div class="progress-bar-fill" id="dash-lot-bar" style="width: 75%;"></div>
+        </div>
+        <div class="break-even-status" style="font-size: 0.85rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+          <span>Encore <strong>57,00 €</strong> pour atteindre le seuil de rentabilité</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Articles Table Section -->
+    <div class="app-section-card">
+      <div class="app-section-header">
+        <div class="app-section-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Derniers articles enregistrés</span>
+        </div>
+        <a href="app-suivi.html" class="btn btn-secondary btn-sm" style="font-size: 0.8rem;">Voir tout l'inventaire →</a>
+      </div>
+
+      <!-- Active Table -->
+      <div class="app-table-wrapper" id="articles-table-wrapper">
+        <table class="app-table">
+          <thead>
+            <tr>
+              <th>Article</th>
+              <th>Source</th>
+              <th>Achat</th>
+              <th>Statut</th>
+              <th>Vente Vinted</th>
+              <th>Gain / Perte</th>
+              <th style="text-align: right;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="dash-articles-tbody">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Empty State Card (Hidden if articles exist) -->
+      <div class="app-empty-state-card" id="dash-empty-state" style="display: none;">
+        <div class="app-empty-icon">📦</div>
+        <div class="app-empty-title">Aucun article enregistré ce mois-ci</div>
+        <div class="app-empty-desc">Ajoutez votre premier article via le simulateur pour voir votre rentabilité se calculer automatiquement en direct.</div>
+        <a href="app-simulateur.html" class="btn btn-primary btn-sm btn-glow">
+          + Calculer et enregistrer mon 1er article
+        </a>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script src="app-store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Render Sidebar
+      MargeoStore.renderAppSidebar('dashboard');
+
+      const user = MargeoStore.getUser();
+      const articles = MargeoStore.getArticles();
+      const lots = MargeoStore.getLots();
+
+      // 2. Personalize Header
+      const greetingEl = document.getElementById('user-greeting');
+      if (greetingEl && user.name) {
+        greetingEl.textContent = `Bonjour ${user.name} 👋`;
+      }
+
+      const modeBadge = document.getElementById('active-mode-badge');
+      if (modeBadge) {
+        if (user.sellerMode === 'pro') {
+          modeBadge.className = 'seller-mode-pill pro';
+          modeBadge.innerHTML = '<span>💼 Mode Vinted Pro (5% comm.)</span>';
+        } else {
+          modeBadge.className = 'seller-mode-pill';
+          modeBadge.innerHTML = '<span>👤 Mode Particulier (0% comm.)</span>';
+        }
+      }
+
+      // 3. Check Free Limit
+      const limitBanner = document.getElementById('limit-banner');
+      if (limitBanner) {
+        if (user.plan === 'gratuit' && (user.monthlyCalculationsUsed >= 5)) {
+          limitBanner.style.display = 'flex';
+        }
+      }
+
+      // 4. Update Month KPIs
+      const summary = MargeoStore.getMonthlySummary(user.sellerMode);
+      document.getElementById('kpi-total-spent').textContent = MargeoStore.formatEuro(summary.totalSpent);
+      document.getElementById('kpi-total-earned').textContent = MargeoStore.formatEuro(summary.totalEarned);
+      document.getElementById('kpi-sold-count').textContent = `${summary.soldCount} article${summary.soldCount > 1 ? 's' : ''} vendu${summary.soldCount > 1 ? 's' : ''} (${summary.inStockCount} en stock)`;
+      
+      const netProfitEl = document.getElementById('kpi-net-profit');
+      netProfitEl.textContent = (summary.netProfit >= 0 ? '+' : '') + MargeoStore.formatEuro(summary.netProfit);
+      document.getElementById('kpi-margin-rate').textContent = `Marge nette globale : +${summary.marginPercent.toFixed(1)} %`;
+
+      // 5. Render Recent Articles Table
+      const tbody = document.getElementById('dash-articles-tbody');
+      const tableWrapper = document.getElementById('articles-table-wrapper');
+      const emptyState = document.getElementById('dash-empty-state');
+
+      if (articles.length === 0) {
+        tableWrapper.style.display = 'none';
+        emptyState.style.display = 'flex';
+      } else {
+        tableWrapper.style.display = 'block';
+        emptyState.style.display = 'none';
+
+        tbody.innerHTML = articles.slice(0, 5).map(art => {
+          const gain = MargeoStore.calculateArticleGain(art, user.sellerMode);
+          const isSold = art.status === 'sold';
+          return `
+            <tr>
+              <td><strong>${art.name}</strong></td>
+              <td><span style="color: var(--text-muted); font-size: 0.8rem;">${art.source}</span></td>
+              <td>${MargeoStore.formatEuro(art.buyPrice)}</td>
+              <td>
+                <span class="app-badge-status ${isSold ? 'sold' : 'pending'}">
+                  ${isSold ? '✓ Vendu' : '⏳ En vente'}
+                </span>
+              </td>
+              <td>${isSold ? MargeoStore.formatEuro(art.sellPrice) : '<span style="color:var(--text-subtle);">-</span>'}</td>
+              <td>
+                <strong style="color: ${gain >= 0 ? 'var(--accent-success)' : 'var(--accent-danger)'};">
+                  ${gain >= 0 ? '+' : ''}${MargeoStore.formatEuro(gain)}
+                </strong>
+              </td>
+              <td style="text-align: right;">
+                <button class="btn btn-secondary btn-sm" onclick="toggleStatus('${art.id}')" style="padding: 4px 10px; font-size: 0.75rem;">
+                  ${isSold ? 'Marquer en stock' : 'Marquer vendu'}
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      // 6. Active Lot Widget
+      const lotWidget = document.getElementById('lot-widget-container');
+      if (lots.length === 0 || (user.plan === 'gratuit' || user.plan === 'starter')) {
+        // Locked / preview state for free or non-pro users
+        if (user.plan === 'gratuit' || user.plan === 'starter') {
+          lotWidget.innerHTML = `
+            <div class="app-locked-container">
+              <div class="app-locked-backdrop">
+                <div class="app-section-title"><span>Lot de commande en cours</span></div>
+                <div class="break-even-card"><div class="progress-track"><div class="progress-bar-fill" style="width: 75%;"></div></div></div>
+              </div>
+              <div class="app-locked-overlay">
+                <div class="locked-badge-pill">⭐ Pro Reseller & Empire</div>
+                <div class="locked-overlay-title">Suivi des Lots d'achats groupés</div>
+                <div class="locked-overlay-desc">Visualisez le seuil de rentabilité exact de vos commandes groupées et cartons de grossiste.</div>
+                <a href="app-parametres.html#abonnement" class="btn btn-primary btn-sm btn-glow">Débloquer cette fonctionnalité</a>
+              </div>
+            </div>
+          `;
+        }
+      }
+    });
+
+    function toggleStatus(id) {
+      MargeoStore.toggleArticleStatus(id);
+      window.location.reload();
+    }
+  </script>
+</body>
+</html>
