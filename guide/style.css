@@ -2715,6 +2715,350 @@ input:checked + .slider:before {
 }
 
 /* ==========================================================================
+   SUIVI & LOTS — STYLES DE BASE (section article-par-article + lot de commande)
+   ========================================================================== */
+
+.tracker-section {
+  padding: 90px 0;
+  background: #FFFFFF;
+}
+
+.tracker-demo-container {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.article-tracker-box, .lot-tracker-box {
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.lot-tracker-box {
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--primary-50) 100%);
+  border-color: var(--primary-200);
+  justify-content: space-between;
+}
+
+.tracker-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tracker-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text-main);
+}
+
+.tracker-view-toggle {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--primary-600);
+  background: var(--primary-50);
+  border: 1px solid var(--primary-200);
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+}
+
+.tracker-view-toggle:hover {
+  background: var(--primary-100);
+}
+
+.article-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.article-row-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #F8FAFC;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  flex-wrap: wrap;
+}
+
+.article-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.article-name {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--text-main);
+}
+
+.article-source-tag {
+  font-size: 0.78rem;
+  color: var(--text-subtle);
+}
+
+.article-finances {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.status-pill.sold {
+  background: var(--accent-success-light);
+  color: var(--accent-success);
+}
+
+.status-pill.pending {
+  background: var(--accent-warning-light);
+  color: var(--accent-warning);
+}
+
+.article-empty-state {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+}
+
+.article-empty-state.visible {
+  display: flex;
+}
+
+.empty-icon {
+  font-size: 2.4rem;
+  margin-bottom: 12px;
+}
+
+.empty-title {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.empty-desc {
+  font-size: 0.85rem;
+  max-width: 320px;
+  line-height: 1.5;
+}
+
+.monthly-recap-banner {
+  background: linear-gradient(145deg, #1E1B4B 0%, #312E81 100%);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.recap-stats-group {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.recap-stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.recap-stat-item .label {
+  font-size: 0.72rem;
+  color: var(--primary-200);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-weight: 600;
+}
+
+.recap-stat-item .val {
+  font-size: 1.15rem;
+  font-weight: 800;
+  font-family: var(--font-heading);
+}
+
+.recap-verdict {
+  text-align: right;
+}
+
+.recap-verdict-title {
+  font-size: 0.72rem;
+  color: var(--primary-200);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.lot-badge-pro {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  background: #FEF3C7;
+  color: #92400E;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: 14px;
+}
+
+.lot-title {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.lot-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-bottom: 18px;
+}
+
+.lot-name-input-wrapper {
+  margin-bottom: 16px;
+}
+
+.lot-name-field {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-md);
+  background: #FFFFFF;
+  color: var(--text-main);
+  transition: all var(--transition-fast);
+}
+
+.lot-name-field:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
+}
+
+.break-even-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+}
+
+.progress-label-row {
+  margin-bottom: 12px;
+}
+
+.lot-summary-title {
+  font-size: 0.88rem;
+  color: var(--text-main);
+  line-height: 1.5;
+}
+
+.progress-track {
+  width: 100%;
+  height: 10px;
+  background: var(--primary-100);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--violet-gradient);
+  border-radius: var(--radius-full);
+  transition: width 0.5s ease;
+}
+
+.break-even-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #92400E;
+}
+
+.lot-interactive-sim {
+  background: var(--primary-50);
+  border: 1px dashed var(--primary-300);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.lot-interactive-sim label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.lot-sim-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 140px;
+}
+
+.lot-sim-input {
+  width: 100%;
+  padding: 10px 32px 10px 12px;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-md);
+  background: #FFFFFF;
+  color: var(--text-main);
+}
+
+.lot-sim-input:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
+}
+
+.lot-sim-unit {
+  position: absolute;
+  right: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
    RESPONSIVE DESIGN (MEDIA QUERIES)
    ========================================================================== */
 
@@ -3596,5 +3940,3 @@ input:checked + .slider:before {
 .error-404-support-link:hover {
   color: var(--primary-600);
 }
-
-
